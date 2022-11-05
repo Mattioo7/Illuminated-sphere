@@ -9,4 +9,24 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <None Remove="Props\sphere.obj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Include="Props\sphere.obj">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="ObjLoader\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Reference Include="CjClutter.ObjLoader.Loader">
+        <HintPath>ObjLoader\CjClutter.ObjLoader.Loader.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>
