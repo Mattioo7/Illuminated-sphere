@@ -29,6 +29,18 @@ namespace Illuminated_sphere.Drawing
 			workingArea.Refresh();
 		}
 
+		public static void drawVertex(Point point, PictureBox workingArea)
+		{
+			int RADIUS = 8;
+
+			using (Graphics g = Graphics.FromImage(workingArea.Image))
+			{
+				g.FillEllipse(Brushes.Black, (int)point.X - RADIUS + 2, (int)point.Y - RADIUS + 2, (RADIUS - 2) * 2, (RADIUS - 2) * 2);
+			}
+
+			workingArea.Refresh();
+		}
+
 		public static void drawLines(List<Polygon> polygons, PictureBox workingArea)
 		{
 			using (Graphics g = Graphics.FromImage(workingArea.Image))	// czy to będzie spowalniało program?

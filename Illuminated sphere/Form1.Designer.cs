@@ -32,9 +32,9 @@ partial class form_mainWindow
 			this.tableLayoutPanel_main = new System.Windows.Forms.TableLayoutPanel();
 			this.pictureBox_workingArea = new System.Windows.Forms.PictureBox();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.button3 = new System.Windows.Forms.Button();
 			this.button2 = new System.Windows.Forms.Button();
 			this.button1 = new System.Windows.Forms.Button();
-			this.button3 = new System.Windows.Forms.Button();
 			this.tableLayoutPanel_main.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox_workingArea)).BeginInit();
 			this.groupBox1.SuspendLayout();
@@ -77,13 +77,23 @@ partial class form_mainWindow
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "groupBox1";
 			// 
+			// button3
+			// 
+			this.button3.Location = new System.Drawing.Point(59, 331);
+			this.button3.Name = "button3";
+			this.button3.Size = new System.Drawing.Size(75, 23);
+			this.button3.TabIndex = 2;
+			this.button3.Text = "Całość";
+			this.button3.UseVisualStyleBackColor = true;
+			this.button3.Click += new System.EventHandler(this.button3_Click);
+			// 
 			// button2
 			// 
 			this.button2.Location = new System.Drawing.Point(59, 277);
 			this.button2.Name = "button2";
 			this.button2.Size = new System.Drawing.Size(75, 23);
 			this.button2.TabIndex = 1;
-			this.button2.Text = "button2";
+			this.button2.Text = "Jeden poly";
 			this.button2.UseVisualStyleBackColor = true;
 			this.button2.Click += new System.EventHandler(this.button2_Click);
 			// 
@@ -93,19 +103,9 @@ partial class form_mainWindow
 			this.button1.Name = "button1";
 			this.button1.Size = new System.Drawing.Size(75, 23);
 			this.button1.TabIndex = 0;
-			this.button1.Text = "button1";
+			this.button1.Text = "Siatka";
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click);
-			// 
-			// button3
-			// 
-			this.button3.Location = new System.Drawing.Point(59, 331);
-			this.button3.Name = "button3";
-			this.button3.Size = new System.Drawing.Size(75, 23);
-			this.button3.TabIndex = 2;
-			this.button3.Text = "button3";
-			this.button3.UseVisualStyleBackColor = true;
-			this.button3.Click += new System.EventHandler(this.button3_Click);
 			// 
 			// form_mainWindow
 			// 

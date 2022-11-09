@@ -36,7 +36,10 @@ namespace Illuminated_sphere.Models
 				for (int j = 0; j < face.Count; j++)
 				{
 					FaceVertex faceVertex = face[j];
-					Vertex newVertex = new Vertex(loadResult.Vertices[faceVertex.VertexIndex - 1]);
+					ObjLoader.Loader.Data.VertexData.Vertex vertex = loadResult.Vertices[faceVertex.VertexIndex - 1];
+					Normal normal = loadResult.Normals[faceVertex.NormalIndex - 1];
+
+					Vertex newVertex = new Vertex(vertex, normal);
 
 					polygon.vertices.Add(newVertex);
 				}

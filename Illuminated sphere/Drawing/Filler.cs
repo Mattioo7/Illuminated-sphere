@@ -1,4 +1,5 @@
 ﻿using Illuminated_sphere.Models;
+using Illuminated_sphere.Drawing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -15,26 +16,27 @@ namespace Illuminated_sphere.Drawing
 		{
 			foreach (Polygon polygon in polygons)
 			{
-				fillPolygon(polygon, workingArea);
+				fillPolygon(polygon, workingArea, null);
 			}
 		}
 
-		public static void fillPolygons(List<Polygon> polygons, PictureBox workingArea, int i)
+		public static void fillPolygons(List<Polygon> polygons, PictureBox workingArea, Color objectColor, int i)
 		{
-			fillPolygon(polygons[i], workingArea);
+			fillPolygon(polygons[i], workingArea, objectColor);
 		}
 
-		public static void fillPolygon(Polygon polygon, PictureBox workingArea)
+		public static void fillPolygon(Polygon polygon, PictureBox workingArea, Color? objectColor)
 		{
 			List<Vertex> vertices = polygon.vertices;
 
+			// kolory wierzchołków to mogę i tutaj
+			ColorGenerator.setVerticesColors(polygon);
+
 			List<Vertex> sortedVertices = vertices.OrderBy(vertex => vertex.y).ToList();
-			//sortedVertices.Sort((vertex1, vertex2) => vertex1.y > vertex2.y ? 1 : -1);
 
 			int[] ind = new int[polygon.vertices.Count];
 			for (int i = 0; i < vertices.Count; i++)
 			{
-				/*ind[i] = sortedVertices.IndexOf(vertices[i]);*/
 				ind[i] = vertices.IndexOf(sortedVertices[i]);
 			}
 
@@ -90,11 +92,6 @@ namespace Illuminated_sphere.Drawing
 
 				AET = AET.OrderBy(pointer => pointer.x).ToList();
 
-				if (AET.Count % 2 == 1)
-				{
-					Debug.WriteLine("xxxxx");
-				}
-
 				if (AET.Count % 2 == 0)
 				{
 					for (int i = 0; i < Math.Min(AET.Count, 2); i += 2)
@@ -108,7 +105,18 @@ namespace Illuminated_sphere.Drawing
 								continue;
 							}
 
-							((Bitmap)workingArea.Image).SetPixel(x, y, Color.Red);
+							// interpolacja koloru 
+							Color color = ColorGenerator.generatePixelColor(polygon, x, y);
+
+							if (objectColor != null)
+							{
+								color = (Color)objectColor;
+							}
+
+							// albo interpolacja wektora
+							// ...
+
+							((Bitmap)workingArea.Image).SetPixel(x, y, color);
 						}
 					}
 				}
@@ -119,8 +127,9 @@ namespace Illuminated_sphere.Drawing
 					a.x += a.alfa;
 				}
 
-				workingArea.Refresh();
 			}
+
+			workingArea.Refresh();
 		}
 	}
 }
