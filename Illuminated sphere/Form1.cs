@@ -70,14 +70,30 @@ public partial class form_mainWindow : Form
 
 	private void button2_Click(object sender, EventArgs e)
 	{
+		Stopwatch timing = new Stopwatch();
+		timing.Start();
+
 		Debug.WriteLine("i: " + a);
-		Filler.fillPolygons(polygons, this.pictureBox_workingArea, Color.Red, a);
+		Filler.fillPolygons(polygons, this.pictureBox_workingArea, a);
+		/*Filler.fillPolygons(polygons, this.pictureBox_workingArea, a, Color.Red);*/
 
 		a++;
+
+		timing.Stop();
+		Debug.WriteLine("Elapsed time: {0} ms", timing.ElapsedMilliseconds);
 	}
 
 	private void button3_Click(object sender, EventArgs e)
 	{
+		Stopwatch timing = new Stopwatch();
+		Debug.WriteLine("Started timer");
+		timing.Start();
+
 		Filler.fillPolygons(polygons, this.pictureBox_workingArea);
+
+		this.pictureBox_workingArea.Refresh();
+
+		timing.Stop();
+		Debug.WriteLine("Elapsed time: {0} ms = {1} s", timing.ElapsedMilliseconds, timing.ElapsedMilliseconds / 1000);
 	}
 }
