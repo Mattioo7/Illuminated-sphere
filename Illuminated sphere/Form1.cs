@@ -47,7 +47,7 @@ public partial class form_mainWindow : Form
 		{
 			g.Clear(Color.AliceBlue);
 		}
-		Filler.fillPolygons(projectData.polygons, projectData);
+		Filler.fillPolygons(projectData);
 
 		this.pictureBox_workingArea.Refresh();
 
@@ -62,7 +62,13 @@ public partial class form_mainWindow : Form
 		this.pictureBox_workingArea.Image = bitmap;
 		projectData.workingArea = this.pictureBox_workingArea;
 
-		defaultValues();
+		// sun
+		this.panel_sunColor.BackColor = projectData.sunColor;
+
+		// object
+		this.panel_objColor.BackColor = projectData.objColor;
+
+		SunAnimation.sun(projectData);
 	}
 
 	public void defaultValues()
@@ -72,34 +78,34 @@ public partial class form_mainWindow : Form
 		projectData.m = 20;
 	}
 
-	private void button1_Click(object sender, EventArgs e)
+	private void button_outline_Click(object sender, EventArgs e)
 	{
 		BasicDrawing.drawVertices(projectData.polygons, projectData);
 		BasicDrawing.drawLines(projectData.polygons, projectData);
 	}
 
-	private void button2_Click(object sender, EventArgs e)
+	private void button_onePolygon_Click(object sender, EventArgs e)
 	{
 		Stopwatch timing = new Stopwatch();
 		timing.Start();
 
 		Debug.WriteLine("i: " + a);
-		Filler.fillPolygons(projectData.polygons, projectData, a);
-		/*Filler.fillPolygons(polygons, this.pictureBox_workingArea, a, Color.Red);*/
+		Filler.fillPolygons2(projectData, a/*, Color.Red*/);
 
 		a++;
+		this.pictureBox_workingArea.Refresh();
 
 		timing.Stop();
 		Debug.WriteLine("Elapsed time: {0} ms", timing.ElapsedMilliseconds);
 	}
 
-	private void button3_Click(object sender, EventArgs e)
+	private void button_redraw_Click(object sender, EventArgs e)
 	{
 		Stopwatch timing = new Stopwatch();
 		Debug.WriteLine("Started timer");
 		timing.Start();
 
-		Filler.fillPolygons(projectData.polygons, projectData);
+		Filler.fillPolygons(projectData);
 
 		this.pictureBox_workingArea.Refresh();
 
@@ -119,7 +125,7 @@ public partial class form_mainWindow : Form
 		{
 			this.label_kdValue.Text = projectData.kd.ToString();
 		}
-		Filler.fillPolygons(projectData.polygons, projectData);
+		Filler.fillPolygons(projectData);
 	}
 
 	private void trackBar_ks_Scroll(object sender, EventArgs e)
@@ -134,7 +140,7 @@ public partial class form_mainWindow : Form
 		{
 			this.label_ksValue.Text = projectData.ks.ToString();
 		}
-		Filler.fillPolygons(projectData.polygons, projectData);
+		Filler.fillPolygons(projectData);
 	}
 
 	private void trackBar_m_Scroll(object sender, EventArgs e)
@@ -143,6 +149,67 @@ public partial class form_mainWindow : Form
 
 		this.label_mValue.Text = projectData.m.ToString();
 
-		Filler.fillPolygons(projectData.polygons, projectData);
+		Filler.fillPolygons(projectData);
+	}
+
+	private void checkBox_sunAnimation_CheckedChanged(object sender, EventArgs e)
+	{
+		projectData.sunAnimation = (checkBox_sunAnimation.Checked == true);
+
+		/*if (checkBox_sunAnimation.Checked == true)
+		{
+			SunAnimation sunAnimation = new SunAnimation();
+			*//*sunAnimation.AnimateSun(projectData);*//*
+			sunAnimation.calculateSunPosition(projectData);
+		}*/
+
+		/*var periodicTimer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+		while (await periodicTimer.WaitForNextTickAsync())
+		{
+			// Place function in here..
+			Console.WriteLine("Printing");
+		}*/
+	}
+
+	private void trackBar_sunHeight_Scroll(object sender, EventArgs e)
+	{
+		projectData.sunHeightModifier = (this.trackBar_sunHeight.Value / 10f);
+
+		this.label_sunHeightValue.Text = projectData.sunHeightModifier.ToString();
+
+		Filler.fillPolygons(projectData);
+	}
+
+	private void panel_sunColor_Click(object sender, EventArgs e)
+	{
+		ColorDialog colorDialog = new ColorDialog();
+		if (colorDialog.ShowDialog() == DialogResult.OK)
+		{
+			this.panel_sunColor.BackColor = colorDialog.Color;
+			projectData.sunColor = this.panel_sunColor.BackColor;
+			Filler.fillPolygons(projectData);
+		}
+	}
+
+	private void panel_objColor_Paint(object sender, PaintEventArgs e)
+	{
+		ColorDialog colorDialog = new ColorDialog();
+		if (colorDialog.ShowDialog() == DialogResult.OK)
+		{
+			this.panel_objColor.BackColor = colorDialog.Color;
+			projectData.objColor = this.panel_objColor.BackColor;
+			Filler.fillPolygons(projectData);
+		}
+	}
+
+	private void panel_objColor_Click(object sender, EventArgs e)
+	{
+		ColorDialog colorDialog = new ColorDialog();
+		if (colorDialog.ShowDialog() == DialogResult.OK)
+		{
+			this.panel_objColor.BackColor = colorDialog.Color;
+			projectData.objColor = this.panel_objColor.BackColor;
+			Filler.fillPolygons(projectData);
+		}
 	}
 }

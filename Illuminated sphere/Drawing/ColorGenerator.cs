@@ -18,9 +18,9 @@ namespace Illuminated_sphere.Drawing
 			float kd = projectData.kd;
 			float ks = projectData.ks;
 			int m = projectData.m;
-			Color sun = Color.LightGreen;
-			Vector3 sunPosition = new Vector3(700, 400, 1200);
-			Color objColor = Color.Gray;
+			Color sun = projectData.sunColor;
+			Vector3 sunPosition = new Vector3(projectData.sunPosition.X, projectData.sunPosition.Y, projectData.sunPosition.Z * projectData.sunHeightModifier);
+			Color objColor = projectData.objColor;
 
 			foreach (Vertex vertex in polygon.vertices)
 			{
@@ -124,7 +124,9 @@ namespace Illuminated_sphere.Drawing
 
 		public static byte fromUnity(float a) // do innej klasy
 		{
-			return (byte)(a * 255.0f);
+			float result = a * 255.0f;
+			if (result > 255) result = 255; if (result < 0) result = 0;
+			return (byte)(result);
 		}
 	}
 }

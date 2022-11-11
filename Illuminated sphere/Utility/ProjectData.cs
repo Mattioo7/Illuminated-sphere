@@ -10,15 +10,17 @@ namespace Illuminated_sphere.Utility
 {
 	internal class ProjectData
 	{
-		public float kd { get; set; }
-		public float ks { get; set; }
-		public int m { get; set; }
+		public float kd { get; set; } = 1f;
+		public float ks { get; set; } = 0.5f;
+		public int m { get; set; } = 20;
 		public Color sun { get; set; }
-		public Vector3 sunPosition { get; set; }
-		public Color objColor { get; set; }
+		public Color objColor { get; set; } = Color.LightGray;
 		public bool colorInterpolation { get; set; }
 		public PictureBox workingArea { get; set; }
 		public List<Polygon> polygons { get; set; }
-
+		public Vector3 sunPosition { get; set; } = new Vector3(100, 100, 900);
+		public bool sunAnimation { get; set; }
+		public Color sunColor { get; set; } = Color.LightGreen;
+		public float sunHeightModifier { get; set; } = 1;
 	}
 }

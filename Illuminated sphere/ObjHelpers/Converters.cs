@@ -29,8 +29,8 @@ namespace Illuminated_sphere.ObjHelpers
 
 			foreach (Vertex vertex in polygon.vertices)
 			{
-				vertex.y = len * (vertex.y + 1) / 2;
-				vertex.x = len * (vertex.x + 1) / 2;
+				vertex.y = len * (vertex.y + 1) / 2 + 20;
+				vertex.x = len * (vertex.x + 1) / 2 + 20;
 				vertex.z = len * (vertex.z + 1) / 2;
 				
 				/*float nX = len * (vertex.normal.X + 1) / 2;

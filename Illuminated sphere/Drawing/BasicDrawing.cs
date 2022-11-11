@@ -16,7 +16,6 @@ namespace Illuminated_sphere.Drawing
 
 			using (Graphics g = Graphics.FromImage(projectData.workingArea.Image))
 			{
-				/*g.Clear(Color.AliceBlue);*/
 				for (int i = 0; i < polygons.Count; ++i)
 				{
 					for (int j = 0; j < polygons[i].vertices.Count; ++j)
@@ -44,9 +43,8 @@ namespace Illuminated_sphere.Drawing
 
 		public static void drawLines(List<Polygon> polygons, ProjectData projectData)
 		{
-			using (Graphics g = Graphics.FromImage(projectData.workingArea.Image))	// czy to będzie spowalniało program?
+			using (Graphics g = Graphics.FromImage(projectData.workingArea.Image))
 			{
-				//g.Clear(Color.AliceBlue);
 				for (int i = 0; i < polygons.Count; ++i)
 				{
 					for (int j = 0; j < polygons[i].vertices.Count; ++j)

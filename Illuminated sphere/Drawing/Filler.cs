@@ -13,21 +13,21 @@ namespace Illuminated_sphere.Drawing
 {
 	internal static class Filler
 	{
-		public static void fillPolygons(List<Polygon> polygons, ProjectData projectData)
+		public static void fillPolygons(ProjectData projectData)
 		{
 			using (var snoop = new BmpPixelSnoop((Bitmap)projectData.workingArea.Image))
 			{
-				Parallel.ForEach(polygons, polygon => fillPolygon(polygon, projectData, snoop, null));
+				Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, snoop, null));
 			}
 
 			projectData.workingArea.Refresh();
 		}
 
-		public static void fillPolygons(List<Polygon> polygons, ProjectData projectData, int i, Color? objectColor = null)
+		public static void fillPolygons2(ProjectData projectData, int i, Color? polyColor = null)
 		{
 			using (var snoop = new BmpPixelSnoop((Bitmap)projectData.workingArea.Image))
 			{
-				fillPolygon(polygons[i], projectData, snoop, objectColor);
+				fillPolygon(projectData.polygons[i], projectData, snoop, polyColor);
 			}
 		}
 

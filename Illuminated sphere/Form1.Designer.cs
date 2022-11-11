@@ -48,7 +48,15 @@ partial class form_mainWindow
 			this.label_kd = new System.Windows.Forms.Label();
 			this.trackBar_kd = new System.Windows.Forms.TrackBar();
 			this.groupBox3 = new System.Windows.Forms.GroupBox();
+			this.panel_sunColor = new System.Windows.Forms.Panel();
+			this.label_sunHeightValue = new System.Windows.Forms.Label();
+			this.trackBar_sunHeight = new System.Windows.Forms.TrackBar();
+			this.checkBox_sunAnimation = new System.Windows.Forms.CheckBox();
+			this.label_sunHeight = new System.Windows.Forms.Label();
+			this.label_sunColor = new System.Windows.Forms.Label();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.panel_objColor = new System.Windows.Forms.Panel();
+			this.label_objColor = new System.Windows.Forms.Label();
 			this.tableLayoutPanel_main.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox_workingArea)).BeginInit();
 			this.tableLayoutPanel_right.SuspendLayout();
@@ -57,6 +65,9 @@ partial class form_mainWindow
 			((System.ComponentModel.ISupportInitialize)(this.trackBar_m)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.trackBar_ks)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.trackBar_kd)).BeginInit();
+			this.groupBox3.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.trackBar_sunHeight)).BeginInit();
+			this.groupBox4.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tableLayoutPanel_main
@@ -95,10 +106,10 @@ partial class form_mainWindow
 			this.tableLayoutPanel_right.Location = new System.Drawing.Point(787, 3);
 			this.tableLayoutPanel_right.Name = "tableLayoutPanel_right";
 			this.tableLayoutPanel_right.RowCount = 4;
-			this.tableLayoutPanel_right.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-			this.tableLayoutPanel_right.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-			this.tableLayoutPanel_right.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-			this.tableLayoutPanel_right.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+			this.tableLayoutPanel_right.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 15.36424F));
+			this.tableLayoutPanel_right.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24.10596F));
+			this.tableLayoutPanel_right.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25.03311F));
+			this.tableLayoutPanel_right.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 35.76159F));
 			this.tableLayoutPanel_right.Size = new System.Drawing.Size(194, 755);
 			this.tableLayoutPanel_right.TabIndex = 3;
 			// 
@@ -111,14 +122,14 @@ partial class form_mainWindow
 			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox1.Location = new System.Drawing.Point(3, 3);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(188, 182);
+			this.groupBox1.Size = new System.Drawing.Size(188, 109);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Buttons";
 			// 
 			// button_clear
 			// 
-			this.button_clear.Location = new System.Drawing.Point(6, 143);
+			this.button_clear.Location = new System.Drawing.Point(106, 65);
 			this.button_clear.Name = "button_clear";
 			this.button_clear.Size = new System.Drawing.Size(75, 23);
 			this.button_clear.TabIndex = 3;
@@ -127,13 +138,13 @@ partial class form_mainWindow
 			// 
 			// button_redraw
 			// 
-			this.button_redraw.Location = new System.Drawing.Point(6, 105);
+			this.button_redraw.Location = new System.Drawing.Point(106, 22);
 			this.button_redraw.Name = "button_redraw";
 			this.button_redraw.Size = new System.Drawing.Size(75, 23);
 			this.button_redraw.TabIndex = 2;
 			this.button_redraw.Text = "Redraw";
 			this.button_redraw.UseVisualStyleBackColor = true;
-			this.button_redraw.Click += new System.EventHandler(this.button3_Click);
+			this.button_redraw.Click += new System.EventHandler(this.button_redraw_Click);
 			// 
 			// button_onePolygon
 			// 
@@ -143,7 +154,7 @@ partial class form_mainWindow
 			this.button_onePolygon.TabIndex = 1;
 			this.button_onePolygon.Text = "One poly";
 			this.button_onePolygon.UseVisualStyleBackColor = true;
-			this.button_onePolygon.Click += new System.EventHandler(this.button2_Click);
+			this.button_onePolygon.Click += new System.EventHandler(this.button_onePolygon_Click);
 			// 
 			// button_outline
 			// 
@@ -153,7 +164,7 @@ partial class form_mainWindow
 			this.button_outline.TabIndex = 0;
 			this.button_outline.Text = "Outline";
 			this.button_outline.UseVisualStyleBackColor = true;
-			this.button_outline.Click += new System.EventHandler(this.button1_Click);
+			this.button_outline.Click += new System.EventHandler(this.button_outline_Click);
 			// 
 			// groupBox2
 			// 
@@ -167,9 +178,9 @@ partial class form_mainWindow
 			this.groupBox2.Controls.Add(this.label_kd);
 			this.groupBox2.Controls.Add(this.trackBar_kd);
 			this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.groupBox2.Location = new System.Drawing.Point(3, 191);
+			this.groupBox2.Location = new System.Drawing.Point(3, 118);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(188, 182);
+			this.groupBox2.Size = new System.Drawing.Size(188, 175);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Parameters";
@@ -270,23 +281,110 @@ partial class form_mainWindow
 			// 
 			// groupBox3
 			// 
+			this.groupBox3.Controls.Add(this.panel_sunColor);
+			this.groupBox3.Controls.Add(this.label_sunHeightValue);
+			this.groupBox3.Controls.Add(this.trackBar_sunHeight);
+			this.groupBox3.Controls.Add(this.checkBox_sunAnimation);
+			this.groupBox3.Controls.Add(this.label_sunHeight);
+			this.groupBox3.Controls.Add(this.label_sunColor);
 			this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.groupBox3.Location = new System.Drawing.Point(3, 379);
+			this.groupBox3.Location = new System.Drawing.Point(3, 299);
 			this.groupBox3.Name = "groupBox3";
 			this.groupBox3.Size = new System.Drawing.Size(188, 182);
 			this.groupBox3.TabIndex = 2;
 			this.groupBox3.TabStop = false;
-			this.groupBox3.Text = "Color";
+			this.groupBox3.Text = "Sun";
+			// 
+			// panel_sunColor
+			// 
+			this.panel_sunColor.BackColor = System.Drawing.Color.Red;
+			this.panel_sunColor.Location = new System.Drawing.Point(106, 22);
+			this.panel_sunColor.Name = "panel_sunColor";
+			this.panel_sunColor.Size = new System.Drawing.Size(75, 30);
+			this.panel_sunColor.TabIndex = 10;
+			this.panel_sunColor.Click += new System.EventHandler(this.panel_sunColor_Click);
+			// 
+			// label_sunHeightValue
+			// 
+			this.label_sunHeightValue.AutoSize = true;
+			this.label_sunHeightValue.Location = new System.Drawing.Point(153, 62);
+			this.label_sunHeightValue.Name = "label_sunHeightValue";
+			this.label_sunHeightValue.Size = new System.Drawing.Size(13, 15);
+			this.label_sunHeightValue.TabIndex = 9;
+			this.label_sunHeightValue.Text = "1";
+			// 
+			// trackBar_sunHeight
+			// 
+			this.trackBar_sunHeight.LargeChange = 10;
+			this.trackBar_sunHeight.Location = new System.Drawing.Point(6, 92);
+			this.trackBar_sunHeight.Maximum = 50;
+			this.trackBar_sunHeight.Minimum = 10;
+			this.trackBar_sunHeight.Name = "trackBar_sunHeight";
+			this.trackBar_sunHeight.Size = new System.Drawing.Size(176, 45);
+			this.trackBar_sunHeight.TabIndex = 7;
+			this.trackBar_sunHeight.Tag = "";
+			this.trackBar_sunHeight.TickFrequency = 10;
+			this.trackBar_sunHeight.Value = 10;
+			this.trackBar_sunHeight.Scroll += new System.EventHandler(this.trackBar_sunHeight_Scroll);
+			// 
+			// checkBox_sunAnimation
+			// 
+			this.checkBox_sunAnimation.AutoSize = true;
+			this.checkBox_sunAnimation.Location = new System.Drawing.Point(6, 143);
+			this.checkBox_sunAnimation.Name = "checkBox_sunAnimation";
+			this.checkBox_sunAnimation.Size = new System.Drawing.Size(82, 19);
+			this.checkBox_sunAnimation.TabIndex = 3;
+			this.checkBox_sunAnimation.Text = "Animation";
+			this.checkBox_sunAnimation.UseVisualStyleBackColor = true;
+			this.checkBox_sunAnimation.CheckedChanged += new System.EventHandler(this.checkBox_sunAnimation_CheckedChanged);
+			// 
+			// label_sunHeight
+			// 
+			this.label_sunHeight.AutoSize = true;
+			this.label_sunHeight.Location = new System.Drawing.Point(6, 62);
+			this.label_sunHeight.Name = "label_sunHeight";
+			this.label_sunHeight.Size = new System.Drawing.Size(43, 15);
+			this.label_sunHeight.TabIndex = 1;
+			this.label_sunHeight.Text = "Height";
+			// 
+			// label_sunColor
+			// 
+			this.label_sunColor.AutoSize = true;
+			this.label_sunColor.Location = new System.Drawing.Point(6, 29);
+			this.label_sunColor.Name = "label_sunColor";
+			this.label_sunColor.Size = new System.Drawing.Size(36, 15);
+			this.label_sunColor.TabIndex = 0;
+			this.label_sunColor.Text = "Color";
 			// 
 			// groupBox4
 			// 
+			this.groupBox4.Controls.Add(this.panel_objColor);
+			this.groupBox4.Controls.Add(this.label_objColor);
 			this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.groupBox4.Location = new System.Drawing.Point(3, 567);
+			this.groupBox4.Location = new System.Drawing.Point(3, 487);
 			this.groupBox4.Name = "groupBox4";
-			this.groupBox4.Size = new System.Drawing.Size(188, 185);
+			this.groupBox4.Size = new System.Drawing.Size(188, 265);
 			this.groupBox4.TabIndex = 3;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Object";
+			// 
+			// panel_objColor
+			// 
+			this.panel_objColor.BackColor = System.Drawing.Color.Red;
+			this.panel_objColor.Location = new System.Drawing.Point(106, 22);
+			this.panel_objColor.Name = "panel_objColor";
+			this.panel_objColor.Size = new System.Drawing.Size(75, 30);
+			this.panel_objColor.TabIndex = 11;
+			this.panel_objColor.Click += new System.EventHandler(this.panel_objColor_Click);
+			// 
+			// label_objColor
+			// 
+			this.label_objColor.AutoSize = true;
+			this.label_objColor.Location = new System.Drawing.Point(6, 28);
+			this.label_objColor.Name = "label_objColor";
+			this.label_objColor.Size = new System.Drawing.Size(36, 15);
+			this.label_objColor.TabIndex = 1;
+			this.label_objColor.Text = "Color";
 			// 
 			// form_mainWindow
 			// 
@@ -305,6 +403,11 @@ partial class form_mainWindow
 			((System.ComponentModel.ISupportInitialize)(this.trackBar_m)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.trackBar_ks)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.trackBar_kd)).EndInit();
+			this.groupBox3.ResumeLayout(false);
+			this.groupBox3.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.trackBar_sunHeight)).EndInit();
+			this.groupBox4.ResumeLayout(false);
+			this.groupBox4.PerformLayout();
 			this.ResumeLayout(false);
 
     }
@@ -331,4 +434,12 @@ partial class form_mainWindow
 	private TrackBar trackBar_ks;
 	private Label label_ks;
 	private Label label_kdValue;
+	private TrackBar trackBar_sunHeight;
+	private CheckBox checkBox_sunAnimation;
+	private Label label_sunHeight;
+	private Label label_sunColor;
+	private Label label_sunHeightValue;
+	private Panel panel_sunColor;
+	private Panel panel_objColor;
+	private Label label_objColor;
 }
