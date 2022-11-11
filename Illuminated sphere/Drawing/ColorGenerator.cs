@@ -1,4 +1,5 @@
 ﻿using Illuminated_sphere.Models;
+using Illuminated_sphere.Utility;
 using ObjLoader.Loader.Data.VertexData;
 using System;
 using System.Collections.Generic;
@@ -12,13 +13,13 @@ namespace Illuminated_sphere.Drawing
 {
 	internal static class ColorGenerator
 	{
-		public static void setVerticesColors(Polygon polygon)
+		public static void setVerticesColors(Polygon polygon, ProjectData projectData)
 		{
-			float kd = 1;
-			float ks = 1;
-			int m = 60;
+			float kd = projectData.kd;
+			float ks = projectData.ks;
+			int m = projectData.m;
 			Color sun = Color.LightGreen;
-			Vector3 sunPosition = new Vector3(200, 400, 1200);
+			Vector3 sunPosition = new Vector3(700, 400, 1200);
 			Color objColor = Color.Gray;
 
 			foreach (Vertex vertex in polygon.vertices)

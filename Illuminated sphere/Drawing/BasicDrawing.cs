@@ -1,4 +1,5 @@
 ﻿using Illuminated_sphere.Models;
+using Illuminated_sphere.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace Illuminated_sphere.Drawing
 {
 	internal static class BasicDrawing
 	{
-		public static void drawVertices(List<Polygon> polygons, PictureBox workingArea)
+		public static void drawVertices(List<Polygon> polygons, ProjectData projectData)
 		{
 			int RADIUS = 4;
 
-			using (Graphics g = Graphics.FromImage(workingArea.Image))
+			using (Graphics g = Graphics.FromImage(projectData.workingArea.Image))
 			{
 				/*g.Clear(Color.AliceBlue);*/
 				for (int i = 0; i < polygons.Count; ++i)
@@ -26,24 +27,24 @@ namespace Illuminated_sphere.Drawing
 				}
 			}
 
-			workingArea.Refresh();
+			projectData.workingArea.Refresh();
 		}
 
-		public static void drawVertex(Point point, PictureBox workingArea)
+		public static void drawVertex(Point point, ProjectData projectData)
 		{
 			int RADIUS = 8;
 
-			using (Graphics g = Graphics.FromImage(workingArea.Image))
+			using (Graphics g = Graphics.FromImage(projectData.workingArea.Image))
 			{
 				g.FillEllipse(Brushes.Black, (int)point.X - RADIUS + 2, (int)point.Y - RADIUS + 2, (RADIUS - 2) * 2, (RADIUS - 2) * 2);
 			}
 
-			workingArea.Refresh();
+			projectData.workingArea.Refresh();
 		}
 
-		public static void drawLines(List<Polygon> polygons, PictureBox workingArea)
+		public static void drawLines(List<Polygon> polygons, ProjectData projectData)
 		{
-			using (Graphics g = Graphics.FromImage(workingArea.Image))	// czy to będzie spowalniało program?
+			using (Graphics g = Graphics.FromImage(projectData.workingArea.Image))	// czy to będzie spowalniało program?
 			{
 				//g.Clear(Color.AliceBlue);
 				for (int i = 0; i < polygons.Count; ++i)
@@ -57,7 +58,7 @@ namespace Illuminated_sphere.Drawing
 				}
 			}
 
-			workingArea.Refresh();
+			projectData.workingArea.Refresh();
 		}
 	}
 }

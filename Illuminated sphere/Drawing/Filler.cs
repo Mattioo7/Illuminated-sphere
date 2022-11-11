@@ -7,42 +7,36 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Illuminated_sphere.Utility;
 
 namespace Illuminated_sphere.Drawing
 {
 	internal static class Filler
 	{
-		public static void fillPolygons(List<Polygon> polygons, PictureBox workingArea)
+		public static void fillPolygons(List<Polygon> polygons, ProjectData projectData)
 		{
-			using (var snoop = new BmpPixelSnoop((Bitmap)workingArea.Image))
+			using (var snoop = new BmpPixelSnoop((Bitmap)projectData.workingArea.Image))
 			{
-				Parallel.ForEach(polygons, polygon => fillPolygon(polygon, workingArea, snoop, null));
-
+				Parallel.ForEach(polygons, polygon => fillPolygon(polygon, projectData, snoop, null));
 			}
 
-			/*foreach (Polygon polygon in polygons)
-			{
-				using (var snoop = new BmpPixelSnoop((Bitmap)workingArea.Image))
-				{
-					Parallel.ForEach(polygons, polygon => fillPolygon(polygon, workingArea, snoop, null));
-
-				}
-
-				//fillPolygon(polygon, workingArea, null);
-			}*/
+			projectData.workingArea.Refresh();
 		}
 
-		public static void fillPolygons(List<Polygon> polygons, PictureBox workingArea, int i, Color? objectColor = null)
+		public static void fillPolygons(List<Polygon> polygons, ProjectData projectData, int i, Color? objectColor = null)
 		{
-			//fillPolygon(polygons[i], workingArea, objectColor);
+			using (var snoop = new BmpPixelSnoop((Bitmap)projectData.workingArea.Image))
+			{
+				fillPolygon(polygons[i], projectData, snoop, objectColor);
+			}
 		}
 
-		public static void fillPolygon(Polygon polygon, PictureBox workingArea, BmpPixelSnoop bitmap, Color? objectColor = null)
+		public static void fillPolygon(Polygon polygon, ProjectData projectData, BmpPixelSnoop bitmap, Color? objectColor = null)
 		{
 			List<Vertex> vertices = polygon.vertices;
 
 			// kolory wierzchołków to mogę i tutaj
-			ColorGenerator.setVerticesColors(polygon);
+			ColorGenerator.setVerticesColors(polygon, projectData);
 
 			List<Vertex> sortedVertices = vertices.OrderBy(vertex => vertex.y).ToList();
 
@@ -112,7 +106,7 @@ namespace Illuminated_sphere.Drawing
 						{
 							for (int x = (int)AET[i].x; x <= (int)AET[i + 1].x; ++x)
 							{
-								if (x >= workingArea.Width || x <= 0)
+								if (x >= projectData.workingArea.Width || x <= 0)
 								{
 									/*Debug.WriteLine("x: " + x);
 									Debug.WriteLine("y: " + y);*/
