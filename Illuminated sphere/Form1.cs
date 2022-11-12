@@ -5,6 +5,7 @@ using Illuminated_sphere.Utility;
 using ObjLoader.Loader.Loaders;
 using System.Diagnostics;
 using System.Numerics;
+using Timer = System.Windows.Forms.Timer;
 
 namespace Illuminated_sphere;
 
@@ -12,6 +13,8 @@ public partial class form_mainWindow : Form
 {
 	static int a = 0;
 	ProjectData projectData { get; set; }
+
+	Timer timer = new Timer();
 
 	public form_mainWindow()
 	{
@@ -68,7 +71,16 @@ public partial class form_mainWindow : Form
 		// object
 		this.panel_objColor.BackColor = projectData.objColor;
 
-		SunAnimation.sun(projectData);
+		/*SunAnimation.sun(projectData);*/
+
+		SunAnimation sunAnimation = new SunAnimation();
+
+		timer.Tick += new EventHandler((sender, e) => SunAnimation.calculateSunPosition(sender, e, projectData));
+		timer.Interval = 10;
+		timer.Start();
+		timer.Enabled = false;
+
+
 	}
 
 	public void defaultValues()
@@ -155,20 +167,8 @@ public partial class form_mainWindow : Form
 	private void checkBox_sunAnimation_CheckedChanged(object sender, EventArgs e)
 	{
 		projectData.sunAnimation = (checkBox_sunAnimation.Checked == true);
-
-		/*if (checkBox_sunAnimation.Checked == true)
-		{
-			SunAnimation sunAnimation = new SunAnimation();
-			*//*sunAnimation.AnimateSun(projectData);*//*
-			sunAnimation.calculateSunPosition(projectData);
-		}*/
-
-		/*var periodicTimer = new PeriodicTimer(TimeSpan.FromSeconds(1));
-		while (await periodicTimer.WaitForNextTickAsync())
-		{
-			// Place function in here..
-			Console.WriteLine("Printing");
-		}*/
+		
+		timer.Enabled = (checkBox_sunAnimation.Checked == true);
 	}
 
 	private void trackBar_sunHeight_Scroll(object sender, EventArgs e)

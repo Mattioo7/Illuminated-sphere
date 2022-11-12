@@ -20,31 +20,54 @@ namespace Illuminated_sphere.Utility
         {
 			sunPosition = projectData.sunPosition;
 
-			projectData.sunPosition += new Vector3(10, 0, 0);
+			if (projectData.sunPosition.X < 600 && projectData.sunPosition.Y == 100)
+			{
+				projectData.sunPosition += new Vector3(10, 0, 0);
+			}
+			else if (projectData.sunPosition.X >= 600 && projectData.sunPosition.Y < 600)
+			{
+				projectData.sunPosition += new Vector3(0, 10, 0);
+			}
+			else if (projectData.sunPosition.X >= 100 && projectData.sunPosition.Y >= 600)
+			{
+				projectData.sunPosition += new Vector3(-10, 0, 0);
+			}
+			else if (projectData.sunPosition.X <= 100 && projectData.sunPosition.Y > 100)
+			{
+				projectData.sunPosition += new Vector3(0, -10, 0);
+			}
 
-            /*Timer timer = new Timer();
+
+
+			/*Timer timer = new Timer();
 			timer.Tick += new EventHandler(calculateSunPosition);
 			timer.Interval = 100;
 
 			timer.Start();*/
 
-			
+
 		}
 
-		public void calculateSunPosition(Object myObject, EventArgs myEventArgs)
+		public static void calculateSunPosition(Object obj, EventArgs myEventArgs, ProjectData projectData)
 		{
-			float deltaTime = 0.1f;
-			float timeSpeed = 1f;
-			float angleSpeed = 1f;
-			
-			
-			time += deltaTime * timeSpeed;
-			angle += deltaTime * angleSpeed;
-			if (angle > 2 * Math.PI) angle -= 2 * Math.PI;
+			if (projectData.sunPosition.X < 600 && projectData.sunPosition.Y == 100)
+			{
+				projectData.sunPosition += new Vector3(10, 0, 0);
+			}
+			else if (projectData.sunPosition.X >= 600 && projectData.sunPosition.Y < 600)
+			{
+				projectData.sunPosition += new Vector3(0, 10, 0);
+			}
+			else if (projectData.sunPosition.X >= 100 && projectData.sunPosition.Y >= 600)
+			{
+				projectData.sunPosition += new Vector3(-10, 0, 0);
+			}
+			else if (projectData.sunPosition.X <= 100 && projectData.sunPosition.Y > 100)
+			{
+				projectData.sunPosition += new Vector3(0, -10, 0);
+			}
 
-			sunPosition.X = (float)Math.Cos(angle) * time;
-			sunPosition.Y = (float)Math.Sin(angle) * time;
-
+			Filler.fillPolygons(projectData);
 		}
 
 		public void calculateSunPosition(ProjectData projectData)
@@ -64,6 +87,19 @@ namespace Illuminated_sphere.Utility
 		}
 
 		public static async void sun(ProjectData projectData)
+		{
+			SunAnimation sunAnimation = new SunAnimation();
+
+			Timer timer = new Timer();
+			timer.Tick += new EventHandler((sender, e) => calculateSunPosition(sender, e, projectData));
+			timer.Interval = 10;
+
+			timer.Start();
+
+
+		}
+
+		public static async void sun2(ProjectData projectData)
 		{
 			SunAnimation sunAnimation = new SunAnimation();
 			var periodicTimer = new PeriodicTimer(TimeSpan.FromMilliseconds(1));
