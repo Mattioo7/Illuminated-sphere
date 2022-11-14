@@ -15,9 +15,23 @@ namespace Illuminated_sphere.Drawing
 	{
 		public static void fillPolygons(ProjectData projectData)
 		{
+			if (projectData.useBitmap)
+			{
+				using (var snoop = new BmpPixelSnoop((Bitmap)projectData.workingArea.Image))
+				{
+					using (var texture = new BmpPixelSnoop(projectData.bitmap))
+					{
+						Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, snoop, texture, null));
+					}
+				}
+
+				projectData.workingArea.Refresh();
+				return;
+			}
+
 			using (var snoop = new BmpPixelSnoop((Bitmap)projectData.workingArea.Image))
 			{
-				Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, snoop, null));
+				Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, snoop, null, null));
 			}
 
 			projectData.workingArea.Refresh();
@@ -27,16 +41,19 @@ namespace Illuminated_sphere.Drawing
 		{
 			using (var snoop = new BmpPixelSnoop((Bitmap)projectData.workingArea.Image))
 			{
-				fillPolygon(projectData.polygons[i], projectData, snoop, polyColor);
+				fillPolygon(projectData.polygons[i], projectData, snoop, null, polyColor);
 			}
 		}
 
-		public static void fillPolygon(Polygon polygon, ProjectData projectData, BmpPixelSnoop bitmap, Color? objectColor = null)
+		public static void fillPolygon(Polygon polygon, ProjectData projectData, BmpPixelSnoop bitmap, BmpPixelSnoop? texture, Color? objectColor = null)
 		{
 			List<Vertex> vertices = polygon.vertices;
 
-			// kolory wierzchołków to mogę i tutaj
-			ColorGenerator.setVerticesColors(polygon, projectData);
+			if (projectData.interpolateColor)
+			{
+				ColorGenerator.setVerticesColors(polygon, projectData, texture);
+			}
+		
 
 			List<Vertex> sortedVertices = vertices.OrderBy(vertex => vertex.y).ToList();
 
@@ -51,8 +68,8 @@ namespace Illuminated_sphere.Drawing
 
 			List<AETPointer> AET = new List<AETPointer>();
 
-			//
-			{
+	
+			{ // do debugowania
 				int k = 0;  // iterator po tablicy sortedVerticesIndexes
 				for (int y = ymin + 1; y <= ymax; ++y)
 				{
@@ -113,22 +130,25 @@ namespace Illuminated_sphere.Drawing
 									continue;
 								}
 
+								Color color = Color.Red;
 								// interpolacja koloru 
-								Color color = ColorGenerator.generatePixelColor(polygon, x, y);
+								if (projectData.interpolateColor)
+								{
+									color = ColorGenerator.generatePixelColor(polygon, x, y);
+								}
+								else
+								{
+									// albo interpolacja wektora
+									// ...
+								}
 
+								// debugowanie
 								if (objectColor != null)
 								{
 									color = (Color)objectColor;
 								}
 
-								// albo interpolacja wektora
-								// ...
-
-
-
 								bitmap.SetPixel(x, y, color);
-
-								//((Bitmap)workingArea.Image).SetPixel(x, y, color);
 							}
 						}
 					}

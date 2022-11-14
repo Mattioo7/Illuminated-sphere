@@ -13,17 +13,38 @@ namespace Illuminated_sphere.Drawing
 {
 	internal static class ColorGenerator
 	{
-		public static void setVerticesColors(Polygon polygon, ProjectData projectData)
+		public static void setVerticesColors(Polygon polygon, ProjectData projectData, BmpPixelSnoop texture)
 		{
 			float kd = projectData.kd;
 			float ks = projectData.ks;
 			int m = projectData.m;
 			Color sun = projectData.sunColor;
 			Vector3 sunPosition = new Vector3(projectData.sunPosition.X, projectData.sunPosition.Y, projectData.sunPosition.Z * projectData.sunHeightModifier);
-			Color objColor = projectData.objColor;
+			Color objColor = projectData.objColor; // zawsze będzie ustawiony, bo domyślny
 
 			foreach (Vertex vertex in polygon.vertices)
 			{
+				if (projectData.useBitmap)
+				{
+					int x = (int)vertex.x;
+					int y = (int)vertex.y;
+
+					if (vertex.x > texture.Width)
+					{
+						//x = texture.Width - 1;
+						// z domyślnego
+					}
+					else if (vertex.y > texture.Height)
+					{
+						//y = texture.Height - 1;
+						// z domyślnego
+					}
+					else
+					{
+						objColor = texture.GetPixel(x, y);
+					}
+				}
+
 				Vector3 sunVector = sunPosition - vertex;
 				Vector3 L = Vector3.Normalize(sunVector);
 

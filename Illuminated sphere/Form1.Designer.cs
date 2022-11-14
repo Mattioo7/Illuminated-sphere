@@ -55,8 +55,11 @@ partial class form_mainWindow
 			this.label_sunHeight = new System.Windows.Forms.Label();
 			this.label_sunColor = new System.Windows.Forms.Label();
 			this.groupBox4 = new System.Windows.Forms.GroupBox();
+			this.panel_texture = new System.Windows.Forms.Panel();
+			this.button_texture = new System.Windows.Forms.Button();
+			this.radioButton_texture = new System.Windows.Forms.RadioButton();
+			this.radioButton_color = new System.Windows.Forms.RadioButton();
 			this.panel_objColor = new System.Windows.Forms.Panel();
-			this.label_objColor = new System.Windows.Forms.Label();
 			this.tableLayoutPanel_main.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox_workingArea)).BeginInit();
 			this.tableLayoutPanel_right.SuspendLayout();
@@ -358,8 +361,11 @@ partial class form_mainWindow
 			// 
 			// groupBox4
 			// 
+			this.groupBox4.Controls.Add(this.panel_texture);
+			this.groupBox4.Controls.Add(this.button_texture);
+			this.groupBox4.Controls.Add(this.radioButton_texture);
+			this.groupBox4.Controls.Add(this.radioButton_color);
 			this.groupBox4.Controls.Add(this.panel_objColor);
-			this.groupBox4.Controls.Add(this.label_objColor);
 			this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox4.Location = new System.Drawing.Point(3, 487);
 			this.groupBox4.Name = "groupBox4";
@@ -367,6 +373,47 @@ partial class form_mainWindow
 			this.groupBox4.TabIndex = 3;
 			this.groupBox4.TabStop = false;
 			this.groupBox4.Text = "Object";
+			// 
+			// panel_texture
+			// 
+			this.panel_texture.BackColor = System.Drawing.Color.Red;
+			this.panel_texture.Location = new System.Drawing.Point(6, 101);
+			this.panel_texture.Name = "panel_texture";
+			this.panel_texture.Size = new System.Drawing.Size(175, 74);
+			this.panel_texture.TabIndex = 15;
+			// 
+			// button_texture
+			// 
+			this.button_texture.Location = new System.Drawing.Point(106, 72);
+			this.button_texture.Name = "button_texture";
+			this.button_texture.Size = new System.Drawing.Size(75, 23);
+			this.button_texture.TabIndex = 14;
+			this.button_texture.Text = "Load";
+			this.button_texture.UseVisualStyleBackColor = true;
+			this.button_texture.Click += new System.EventHandler(this.button_texture_Click);
+			// 
+			// radioButton_texture
+			// 
+			this.radioButton_texture.AutoSize = true;
+			this.radioButton_texture.Location = new System.Drawing.Point(6, 72);
+			this.radioButton_texture.Name = "radioButton_texture";
+			this.radioButton_texture.Size = new System.Drawing.Size(63, 19);
+			this.radioButton_texture.TabIndex = 13;
+			this.radioButton_texture.Text = "Texture";
+			this.radioButton_texture.UseVisualStyleBackColor = true;
+			this.radioButton_texture.CheckedChanged += new System.EventHandler(this.radioButton_texture_CheckedChanged);
+			// 
+			// radioButton_color
+			// 
+			this.radioButton_color.AutoSize = true;
+			this.radioButton_color.Checked = true;
+			this.radioButton_color.Location = new System.Drawing.Point(6, 27);
+			this.radioButton_color.Name = "radioButton_color";
+			this.radioButton_color.Size = new System.Drawing.Size(54, 19);
+			this.radioButton_color.TabIndex = 12;
+			this.radioButton_color.TabStop = true;
+			this.radioButton_color.Text = "Color";
+			this.radioButton_color.UseVisualStyleBackColor = true;
 			// 
 			// panel_objColor
 			// 
@@ -376,15 +423,6 @@ partial class form_mainWindow
 			this.panel_objColor.Size = new System.Drawing.Size(75, 30);
 			this.panel_objColor.TabIndex = 11;
 			this.panel_objColor.Click += new System.EventHandler(this.panel_objColor_Click);
-			// 
-			// label_objColor
-			// 
-			this.label_objColor.AutoSize = true;
-			this.label_objColor.Location = new System.Drawing.Point(6, 28);
-			this.label_objColor.Name = "label_objColor";
-			this.label_objColor.Size = new System.Drawing.Size(36, 15);
-			this.label_objColor.TabIndex = 1;
-			this.label_objColor.Text = "Color";
 			// 
 			// form_mainWindow
 			// 
@@ -441,5 +479,8 @@ partial class form_mainWindow
 	private Label label_sunHeightValue;
 	private Panel panel_sunColor;
 	private Panel panel_objColor;
-	private Label label_objColor;
+	private RadioButton radioButton_color;
+	private RadioButton radioButton_texture;
+	private Button button_texture;
+	private Panel panel_texture;
 }

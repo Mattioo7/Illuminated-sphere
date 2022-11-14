@@ -191,7 +191,7 @@ public partial class form_mainWindow : Form
 		}
 	}
 
-	private void panel_objColor_Paint(object sender, PaintEventArgs e)
+	private void panel_objColor_Click(object sender, EventArgs e)
 	{
 		ColorDialog colorDialog = new ColorDialog();
 		if (colorDialog.ShowDialog() == DialogResult.OK)
@@ -202,14 +202,20 @@ public partial class form_mainWindow : Form
 		}
 	}
 
-	private void panel_objColor_Click(object sender, EventArgs e)
+	private void radioButton_texture_CheckedChanged(object sender, EventArgs e)
 	{
-		ColorDialog colorDialog = new ColorDialog();
-		if (colorDialog.ShowDialog() == DialogResult.OK)
+		projectData.useBitmap = radioButton_texture.Checked;
+	}
+
+	private void button_texture_Click(object sender, EventArgs e)
+	{
+		OpenFileDialog fileDialog = new OpenFileDialog();
+		fileDialog.InitialDirectory = Environment.CurrentDirectory;
+		fileDialog.Filter = "Image Files(*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG";
+		if (fileDialog.ShowDialog() == DialogResult.OK)
 		{
-			this.panel_objColor.BackColor = colorDialog.Color;
-			projectData.objColor = this.panel_objColor.BackColor;
-			Filler.fillPolygons(projectData);
+			projectData.bitmap = new Bitmap(fileDialog.FileName);
+			this.panel_texture.BackgroundImage = projectData.bitmap;
 		}
 	}
 }
