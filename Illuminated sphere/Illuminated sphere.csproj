@@ -15,6 +15,8 @@
       <None Remove="Props\proj2_sfera.obj" />
       <None Remove="Props\sphere.obj" />
       <None Remove="Props\sphere3mXXXLSmooth.obj" />
+      <None Remove="Props\Stylized_Fur_002_normal.jpg" />
+      <None Remove="Props\Substance_Graph_Normal.jpg" />
     </ItemGroup>
 
     <ItemGroup>
@@ -28,6 +30,12 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
       <Content Include="Props\sphere3mXXXLSmooth.obj">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Props\Stylized_Fur_002_normal.jpg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Props\Substance_Graph_Normal.jpg">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
     </ItemGroup>

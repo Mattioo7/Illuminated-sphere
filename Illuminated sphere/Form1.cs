@@ -5,6 +5,7 @@ using Illuminated_sphere.Utility;
 using ObjLoader.Loader.Loaders;
 using System.Diagnostics;
 using System.Numerics;
+using System.Windows.Forms;
 using Timer = System.Windows.Forms.Timer;
 
 namespace Illuminated_sphere;
@@ -65,13 +66,11 @@ public partial class form_mainWindow : Form
 		this.pictureBox_workingArea.Image = bitmap;
 		projectData.workingArea = this.pictureBox_workingArea;
 
-		// sun
-		this.panel_sunColor.BackColor = projectData.sunColor;
-
 		// object
 		this.panel_objColor.BackColor = projectData.objColor;
 
-		/*SunAnimation.sun(projectData);*/
+		// sun
+		this.panel_sunColor.BackColor = projectData.sunColor;
 
 		SunAnimation sunAnimation = new SunAnimation();
 
@@ -80,7 +79,10 @@ public partial class form_mainWindow : Form
 		timer.Start();
 		timer.Enabled = false;
 
-
+		// default texture
+		string path = Path.Combine(Environment.CurrentDirectory, @"Props\", "basketball.png");
+		projectData.texture = new Bitmap(path);
+		projectData.texture = new Bitmap(projectData.texture, this.pictureBox_workingArea.Width, this.pictureBox_workingArea.Height);
 	}
 
 	public void defaultValues()
@@ -204,7 +206,10 @@ public partial class form_mainWindow : Form
 
 	private void radioButton_texture_CheckedChanged(object sender, EventArgs e)
 	{
-		projectData.useBitmap = radioButton_texture.Checked;
+		projectData.useTexture = radioButton_texture.Checked;
+
+		Filler.fillPolygons(projectData);
+		this.pictureBox_workingArea.Refresh();
 	}
 
 	private void button_texture_Click(object sender, EventArgs e)
@@ -214,8 +219,33 @@ public partial class form_mainWindow : Form
 		fileDialog.Filter = "Image Files(*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG";
 		if (fileDialog.ShowDialog() == DialogResult.OK)
 		{
-			projectData.bitmap = new Bitmap(fileDialog.FileName);
-			this.panel_texture.BackgroundImage = projectData.bitmap;
+			projectData.texture = new Bitmap(fileDialog.FileName);
+			projectData.texture = new Bitmap(projectData.texture, this.pictureBox_workingArea.Width, this.pictureBox_workingArea.Height);
 		}
+	}
+
+	private void button_loadNormalMap_Click(object sender, EventArgs e)
+	{
+		OpenFileDialog fileDialog = new OpenFileDialog();
+		fileDialog.InitialDirectory = Environment.CurrentDirectory;
+		fileDialog.Filter = "Image Files(*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG";
+		if (fileDialog.ShowDialog() == DialogResult.OK)
+		{
+			projectData.normalMap = new Bitmap(fileDialog.FileName);
+			projectData.normalMap = new Bitmap(projectData.normalMap, this.pictureBox_workingArea.Width, this.pictureBox_workingArea.Height);
+
+			projectData.useNormalMap = true;
+
+			Filler.fillPolygons(projectData);
+			this.pictureBox_workingArea.Refresh();
+		}
+	}
+
+	private void radioButton_colorInterpolation_CheckedChanged(object sender, EventArgs e)
+	{
+		projectData.interpolateColor = radioButton_colorInterpolation.Checked;
+
+		Filler.fillPolygons(projectData);
+		this.pictureBox_workingArea.Refresh();
 	}
 }

@@ -23,13 +23,16 @@ namespace Illuminated_sphere.Utility
 		public float sunHeightModifier { get; set; } = 1;
 
 		// obj color / texture
-		public bool useBitmap { get; set; } = true;
+		public bool useTexture { get; set; } = true;
 		public Color objColor { get; set; } = Color.White;
-		public Bitmap bitmap { get; set; }
+		public Bitmap texture { get; set; }
+
+		// obj color / texture
+		public bool useNormalMap { get; set; } = false;
+		public Bitmap normalMap { get; set; }
 
 		// interpolation
 		public bool interpolateColor { get; set; } = true;
-		public bool colorInterpolation { get; set; }
 
 		// others
 		public PictureBox workingArea { get; set; }

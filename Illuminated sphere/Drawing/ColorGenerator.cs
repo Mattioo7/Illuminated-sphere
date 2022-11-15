@@ -3,6 +3,7 @@ using Illuminated_sphere.Utility;
 using ObjLoader.Loader.Data.VertexData;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -24,7 +25,7 @@ namespace Illuminated_sphere.Drawing
 
 			foreach (Vertex vertex in polygon.vertices)
 			{
-				if (projectData.useBitmap)
+				if (projectData.useTexture)
 				{
 					int x = (int)vertex.x;
 					int y = (int)vertex.y;
@@ -118,14 +119,102 @@ namespace Illuminated_sphere.Drawing
 			return color;
 		}
 
-		public static void interpolateNormal()
+		public static Color generatePixelColorFromNormalVector(Polygon polygon, ProjectData projectData, int x, int y, Vector3 normal, BmpPixelSnoop? texture)
 		{
+			//Stopwatch timing = new Stopwatch();
+			//timing.Start();
 
+			float kd = projectData.kd;
+			float ks = projectData.ks;
+			int m = projectData.m;
+			Color sun = projectData.sunColor;
+			Vector3 sunPosition = new Vector3(projectData.sunPosition.X, projectData.sunPosition.Y, projectData.sunPosition.Z * projectData.sunHeightModifier);
+			Color objColor = projectData.objColor; // zawsze będzie ustawiony, bo domyślny
+
+			if (projectData.useTexture)
+			{
+				if (x > texture.Width)
+				{
+					//x = texture.Width - 1;
+					// z domyślnego
+				}
+				else if (y > texture.Height)
+				{
+					//y = texture.Height - 1;
+					// z domyślnego
+				}
+				else
+				{
+					objColor = texture.GetPixel(x, y);
+				}
+			}
+
+			Vector3 vertex = new Vector3(x, y, interpolateZ(polygon, x, y));
+
+			Vector3 sunVector = sunPosition - vertex;
+			Vector3 L = Vector3.Normalize(sunVector);
+
+			Vector3 N = Vector3.Normalize(normal);
+			Vector3 rVec = 2 * dot(N, L) * N - L;
+			Vector3 R = Vector3.Normalize(rVec);
+
+			Vector3 V = new Vector3(0, 0, 1);
+
+			float RR = toUnity(sun.R) * toUnity(objColor.R) * (kd * cosine(N, L) + ks * (float)Math.Pow(cosine(V, R), m));
+			float GG = toUnity(sun.G) * toUnity(objColor.G) * (kd * cosine(N, L) + ks * (float)Math.Pow(cosine(V, R), m));
+			float BB = toUnity(sun.B) * toUnity(objColor.B) * (kd * cosine(N, L) + ks * (float)Math.Pow(cosine(V, R), m));
+
+			int colorR = fromUnity(RR); if (colorR > 255) colorR = 255; if (colorR < 0) colorR = 0;
+			int colorG = fromUnity(GG); if (colorG > 255) colorG = 255; if (colorG < 0) colorG = 0;
+			int colorB = fromUnity(BB); if (colorB > 255) colorB = 255; if (colorB < 0) colorB = 0;
+			int colorA = 255;
+
+			//timing.Stop();
+			//Debug.WriteLine("Elapsed time generatePixelColorFromNormalVector: {0} ms", timing.ElapsedMilliseconds);
+
+			return Color.FromArgb(colorA, colorR, colorG, colorB);
 		}
 
-		public static void interpolateColor()
+		public static Vector3 interpolateNormal(Polygon polygon, int x, int y)
 		{
+			//Stopwatch timing = new Stopwatch();
+			//timing.Start();
 
+			Vertex v1 = polygon.vertices[0];
+			Vertex v2 = polygon.vertices[1];
+			Vertex v3 = polygon.vertices[2];
+
+			double denominator = ((v2.y - v3.y) * (v1.x - v3.x) + (v3.x - v2.x) * (v1.y - v3.y));
+			double W_v1 = ((v2.y - v3.y) * (x - v3.x) + (v3.x - v2.x) * (y - v3.y)) / denominator;
+			double W_v2 = ((v3.y - v1.y) * (x - v3.x) + (v1.x - v3.x) * (y - v3.y)) / denominator;
+			double W_v3 = 1 - W_v1 - W_v2;
+
+			float normalX = (float)(v1.normal.X * W_v1 + v2.normal.X * W_v2 + v3.normal.X * W_v3);
+			float normalY = (float)(v1.normal.Y * W_v1 + v2.normal.Y * W_v2 + v3.normal.Y * W_v3);
+			float normalZ = (float)(v1.normal.Z * W_v1 + v2.normal.Z * W_v2 + v3.normal.Z * W_v3);
+
+			Vector3 normal = new Vector3(fromUnity(normalX), fromUnity(normalY), fromUnity(normalZ));
+
+			//timing.Stop();
+			//Debug.WriteLine("Elapsed time interpolateNormal: {0} ms", timing.ElapsedMilliseconds);
+
+			return normal;
+		}
+
+		public static int interpolateZ(Polygon polygon, int x, int y)
+		{
+			Vertex v1 = polygon.vertices[0];
+			Vertex v2 = polygon.vertices[1];
+			Vertex v3 = polygon.vertices[2];
+
+			double denominator = ((v2.y - v3.y) * (v1.x - v3.x) + (v3.x - v2.x) * (v1.y - v3.y));
+			double W_v1 = ((v2.y - v3.y) * (x - v3.x) + (v3.x - v2.x) * (y - v3.y)) / denominator;
+			double W_v2 = ((v3.y - v1.y) * (x - v3.x) + (v1.x - v3.x) * (y - v3.y)) / denominator;
+			double W_v3 = 1 - W_v1 - W_v2;
+
+			int z = (int)(v1.z * W_v1 + v2.z * W_v2 + v3.z * W_v3);
+
+			return z;
 		}
 
 		public static float cosine(Vector3 v1, Vector3 v2)
