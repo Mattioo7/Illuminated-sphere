@@ -53,6 +53,10 @@ public partial class form_mainWindow : Form
 		}
 		Filler.fillPolygons(projectData);
 
+		// normals tab
+		projectData.normalsTab = new Vector3[this.pictureBox_workingArea.Width, this.pictureBox_workingArea.Height];
+		NormalMapOperations.calculateNormalsTab(projectData);
+
 		this.pictureBox_workingArea.Refresh();
 
 		return;
@@ -83,6 +87,8 @@ public partial class form_mainWindow : Form
 		string path = Path.Combine(Environment.CurrentDirectory, @"Props\", "basketball.png");
 		projectData.texture = new Bitmap(path);
 		projectData.texture = new Bitmap(projectData.texture, this.pictureBox_workingArea.Width, this.pictureBox_workingArea.Height);
+
+		
 	}
 
 	public void defaultValues()
@@ -237,6 +243,8 @@ public partial class form_mainWindow : Form
 			projectData.useNormalMap = true;
 
 			this.label_normalMapFile.Text = fileDialog.SafeFileName;
+
+			NormalMapOperations.calculateNormalsTabWithNormalMap(projectData);
 
 			Filler.fillPolygons(projectData);
 			this.pictureBox_workingArea.Refresh();

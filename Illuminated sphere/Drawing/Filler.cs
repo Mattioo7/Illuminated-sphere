@@ -149,12 +149,13 @@ namespace Illuminated_sphere.Drawing
 							else
 							{
 								// interpolacja wektora
-								Vector3 normal = ColorGenerator.interpolateNormal(polygon, x, y);
+								/*Vector3 normal = ColorGenerator.interpolateNormal(polygon, x, y);
 								if (projectData.useNormalMap)
 								{
 									normal = NormalMapOperations.modifyNormal(projectData, normal, x, y, normalMap);
-								}
+								}*/
 
+								Vector3 normal = projectData.normalsTab[x, y];
 								color = ColorGenerator.generatePixelColorFromNormalVector(polygon, projectData, x, y, normal, texture);
 							}
 

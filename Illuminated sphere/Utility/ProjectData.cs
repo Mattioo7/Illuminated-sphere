@@ -30,6 +30,7 @@ namespace Illuminated_sphere.Utility
 		// obj color / texture
 		public bool useNormalMap { get; set; } = false;
 		public Bitmap normalMap { get; set; }
+		public Vector3[,] normalsTab { get; set; }
 
 		// interpolation
 		public bool interpolateColor { get; set; } = true;
