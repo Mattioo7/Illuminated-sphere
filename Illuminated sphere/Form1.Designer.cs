@@ -64,6 +64,7 @@ partial class form_mainWindow
 			this.groupBox_normalMap = new System.Windows.Forms.GroupBox();
 			this.button_clearNormalMap = new System.Windows.Forms.Button();
 			this.button_loadNormalMap = new System.Windows.Forms.Button();
+			this.label_normalMapFile = new System.Windows.Forms.Label();
 			this.tableLayoutPanel_main.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox_workingArea)).BeginInit();
 			this.tableLayoutPanel_right.SuspendLayout();
@@ -449,6 +450,7 @@ partial class form_mainWindow
 			// 
 			// groupBox_normalMap
 			// 
+			this.groupBox_normalMap.Controls.Add(this.label_normalMapFile);
 			this.groupBox_normalMap.Controls.Add(this.button_clearNormalMap);
 			this.groupBox_normalMap.Controls.Add(this.button_loadNormalMap);
 			this.groupBox_normalMap.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -478,6 +480,15 @@ partial class form_mainWindow
 			this.button_loadNormalMap.UseVisualStyleBackColor = true;
 			this.button_loadNormalMap.Click += new System.EventHandler(this.button_loadNormalMap_Click);
 			// 
+			// label_normalMapFile
+			// 
+			this.label_normalMapFile.AutoSize = true;
+			this.label_normalMapFile.Location = new System.Drawing.Point(6, 58);
+			this.label_normalMapFile.Name = "label_normalMapFile";
+			this.label_normalMapFile.Size = new System.Drawing.Size(58, 15);
+			this.label_normalMapFile.TabIndex = 2;
+			this.label_normalMapFile.Text = "File name";
+			// 
 			// form_mainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -501,6 +512,7 @@ partial class form_mainWindow
 			this.groupBox_object.ResumeLayout(false);
 			this.groupBox_object.PerformLayout();
 			this.groupBox_normalMap.ResumeLayout(false);
+			this.groupBox_normalMap.PerformLayout();
 			this.ResumeLayout(false);
 
     }
@@ -542,4 +554,5 @@ partial class form_mainWindow
 	private GroupBox groupBox_normalMap;
 	private Button button_clearNormalMap;
 	private Button button_loadNormalMap;
+	private Label label_normalMapFile;
 }

@@ -40,7 +40,7 @@ namespace Illuminated_sphere.Utility
 			}
 		}
 
-		public static Vector3 modifyNormal(ProjectData projectData, Vector3 normal, int x, int y, BmpPixelSnoop normalMap)
+		public static Vector3 modifyNormal(ProjectData projectData, Vector3 normal, int x, int y, BmpPixelSnoop? normalMap)
 		{
 			Color color = normalMap.GetPixel(x, y);
 
@@ -56,7 +56,6 @@ namespace Illuminated_sphere.Utility
 			Vector3 T = Vector3.Cross(B, N_powierzchni);
 
 			Vector3 result = matrixVectorProduct(T, B, N_powierzchni, N_tekstury);
-
 
 			return result;
 		}

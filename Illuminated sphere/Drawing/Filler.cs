@@ -11,6 +11,7 @@ using Illuminated_sphere.Utility;
 using System.Numerics;
 using System.Runtime.Intrinsics;
 using ObjLoader.Loader.Data.VertexData;
+using Vertex = Illuminated_sphere.Models.Vertex;
 
 namespace Illuminated_sphere.Drawing
 {
@@ -26,8 +27,7 @@ namespace Illuminated_sphere.Drawing
 					using (var normalMap = new BmpPixelSnoop(projectData.normalMap))
 					{
 						Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, snoop, texture, null, normalMap));
-						/*foreach (Polygon polygon in projectData.polygons)
-							fillPolygon(polygon, projectData, snoop, texture, null, normalMap);*/
+						//foreach (Polygon polygon in projectData.polygons) fillPolygon(polygon, projectData, snoop, texture, null, normalMap);
 					}
 				}
 				else if (projectData.useTexture)
@@ -35,8 +35,7 @@ namespace Illuminated_sphere.Drawing
 					using (var texture = new BmpPixelSnoop(projectData.texture))
 					{
 						Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, snoop, texture, null, null));
-						/*foreach (Polygon polygon in projectData.polygons)
-							fillPolygon(polygon, projectData, snoop, texture, null, normalMap);*/
+						//foreach (Polygon polygon in projectData.polygons) fillPolygon(polygon, projectData, snoop, texture, null, null);
 					}
 				}
 				else if (projectData.useNormalMap)
@@ -44,8 +43,7 @@ namespace Illuminated_sphere.Drawing
 					using (var normalMap = new BmpPixelSnoop(projectData.normalMap))
 					{
 						Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, snoop, null, null, normalMap));
-						/*foreach (Polygon polygon in projectData.polygons)
-							fillPolygon(polygon, projectData, snoop, texture, null, normalMap);*/
+						//foreach (Polygon polygon in projectData.polygons) fillPolygon(polygon, projectData, snoop, null, null, normalMap);
 					}
 				}
 			}
@@ -64,9 +62,6 @@ namespace Illuminated_sphere.Drawing
 
 		public static void fillPolygon(Polygon polygon, ProjectData projectData, BmpPixelSnoop bitmap, BmpPixelSnoop? texture, Color? objectColor = null, BmpPixelSnoop? normalMap = null)
 		{
-			//Stopwatch timing = new Stopwatch();
-			//timing.Start();
-
 			List<Vertex> vertices = polygon.vertices;
 
 			if (projectData.interpolateColor)
@@ -136,49 +131,47 @@ namespace Illuminated_sphere.Drawing
 
 					AET = AET.OrderBy(pointer => pointer.x).ToList();
 
-					if (AET.Count % 2 == 0) // todo: usunąć ---------------------------
+					for (int i = 0; i < AET.Count; i += 2)
 					{
-						for (int i = 0; i < Math.Min(AET.Count, 2); i += 2) // todo: usunąć Math.Min ---------------------------
+						for (int x = (int)AET[i].x; x <= (int)AET[i + 1].x; ++x)
 						{
-							for (int x = (int)AET[i].x; x <= (int)AET[i + 1].x; ++x)
+							if (x >= projectData.workingArea.Width || x <= 0)
 							{
-								if (x >= projectData.workingArea.Width || x <= 0)
-								{
-									/*Debug.WriteLine("x: " + x);
-									Debug.WriteLine("y: " + y);*/
-									continue;
-								}
-
-								Color color = Color.Red;
-								// interpolacja koloru 
-								if (projectData.interpolateColor)
-								{
-									color = ColorGenerator.generatePixelColor(polygon, x, y);
-								}
-								else
-								{
-									// albo interpolacja wektora
-									Vector3 normal = ColorGenerator.interpolateNormal(polygon, x, y);
-									if (projectData.useNormalMap)
-									{
-										normal = NormalMapOperations.modifyNormal(projectData, normal, x, y, normalMap);
-									}
-
-									color = ColorGenerator.generatePixelColorFromNormalVector(polygon, projectData, x, y, normal, texture);
-									//Debug.WriteLine("Draw poly" + polygon.ToString());
-								}
-
-								// debugowanie
-								if (objectColor != null)
-								{
-									color = (Color)objectColor;
-								}
-
-								bitmap.SetPixel(x, y, color);
+								continue;
 							}
+
+							Color color = Color.Red;
+							if (projectData.interpolateColor)
+							{
+								// interpolacja koloru 
+								color = ColorGenerator.generatePixelColor(polygon, x, y);
+							}
+							else
+							{
+								// interpolacja wektora
+								Vector3 normal = ColorGenerator.interpolateNormal(polygon, x, y);
+								if (projectData.useNormalMap)
+								{
+									normal = NormalMapOperations.modifyNormal(projectData, normal, x, y, normalMap);
+								}
+
+								color = ColorGenerator.generatePixelColorFromNormalVector(polygon, projectData, x, y, normal, texture);
+							}
+
+							// debugowanie
+							if (objectColor != null)
+							{
+								color = (Color)objectColor;
+							}
+
+							bitmap.SetPixel(x, y, color);
 						}
 					}
 
+					if (AET.Count % 2 != 0)
+					{
+						Debug.WriteLine("AET.Count % 2 != 0");
+					}
 
 					foreach (var a in AET)
 					{
@@ -187,9 +180,6 @@ namespace Illuminated_sphere.Drawing
 
 				}
 			}
-
-			//timing.Stop();
-			//Debug.WriteLine("Elapsed time fillPolygon: {0} ms", timing.ElapsedMilliseconds);
 		}
 	}
 }

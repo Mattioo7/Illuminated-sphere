@@ -184,16 +184,16 @@ namespace Illuminated_sphere.Drawing
 			Vertex v2 = polygon.vertices[1];
 			Vertex v3 = polygon.vertices[2];
 
-			double denominator = ((v2.y - v3.y) * (v1.x - v3.x) + (v3.x - v2.x) * (v1.y - v3.y));
-			double W_v1 = ((v2.y - v3.y) * (x - v3.x) + (v3.x - v2.x) * (y - v3.y)) / denominator;
-			double W_v2 = ((v3.y - v1.y) * (x - v3.x) + (v1.x - v3.x) * (y - v3.y)) / denominator;
-			double W_v3 = 1 - W_v1 - W_v2;
+			float denominator = ((v2.y - v3.y) * (v1.x - v3.x) + (v3.x - v2.x) * (v1.y - v3.y));
+			float W_v1 = ((v2.y - v3.y) * (x - v3.x) + (v3.x - v2.x) * (y - v3.y)) / denominator;
+			float W_v2 = ((v3.y - v1.y) * (x - v3.x) + (v1.x - v3.x) * (y - v3.y)) / denominator;
+			float W_v3 = 1 - W_v1 - W_v2;
 
 			float normalX = (float)(v1.normal.X * W_v1 + v2.normal.X * W_v2 + v3.normal.X * W_v3);
 			float normalY = (float)(v1.normal.Y * W_v1 + v2.normal.Y * W_v2 + v3.normal.Y * W_v3);
 			float normalZ = (float)(v1.normal.Z * W_v1 + v2.normal.Z * W_v2 + v3.normal.Z * W_v3);
 
-			Vector3 normal = new Vector3(fromUnity(normalX), fromUnity(normalY), fromUnity(normalZ));
+			Vector3 normal = new Vector3(normalX * 255, normalY * 255, normalZ * 255);
 
 			//timing.Stop();
 			//Debug.WriteLine("Elapsed time interpolateNormal: {0} ms", timing.ElapsedMilliseconds);
