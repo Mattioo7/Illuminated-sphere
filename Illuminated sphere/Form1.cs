@@ -236,6 +236,8 @@ public partial class form_mainWindow : Form
 
 			projectData.useNormalMap = true;
 
+			this.label_normalMapFile.Text = fileDialog.SafeFileName;
+
 			Filler.fillPolygons(projectData);
 			this.pictureBox_workingArea.Refresh();
 		}

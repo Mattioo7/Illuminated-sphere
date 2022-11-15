@@ -49,7 +49,7 @@ namespace Illuminated_sphere.Utility
 			float Nz = normalizeColor2(color.B);
 
 			Vector3 N_tekstury = new Vector3(Nx, Ny, Nz);
-			Vector3 N_powierzchni = normal;
+			Vector3 N_powierzchni = Vector3.Normalize(normal);
 			Vector3 B;
 			if (N_powierzchni == new Vector3(0, 0, 1)) B = new Vector3(0, 1, 0);
 			else B = Vector3.Cross(N_powierzchni, new Vector3(0, 0, 1));
