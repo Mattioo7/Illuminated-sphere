@@ -12,6 +12,7 @@ namespace Illuminated_sphere.Models
 	internal class Polygon
 	{
 		public List<Vertex> vertices { get; set; }
+		public float denominator { get; set; }
 
 		public Polygon() 
 		{
@@ -48,6 +49,14 @@ namespace Illuminated_sphere.Models
 			}
 
 			return polygons;
+		}
+
+		public void calculateDenominator()
+		{
+			Vertex v1 = this.vertices[0];
+			Vertex v2 = this.vertices[1];
+			Vertex v3 = this.vertices[2];
+			this.denominator = ((v2.y - v3.y) * (v1.x - v3.x) + (v3.x - v2.x) * (v1.y - v3.y));
 		}
 	}
 }

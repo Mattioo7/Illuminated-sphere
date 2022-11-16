@@ -19,6 +19,9 @@ namespace Illuminated_sphere.Drawing
 	{
 		public static void fillPolygons(ProjectData projectData)
 		{
+			Stopwatch timing = new Stopwatch();
+			timing.Start();
+
 			using (var snoop = new BmpPixelSnoop((Bitmap)projectData.workingArea.Image))
 			{
 				if (projectData.useTexture && projectData.useNormalMap)
@@ -46,9 +49,17 @@ namespace Illuminated_sphere.Drawing
 						//foreach (Polygon polygon in projectData.polygons) fillPolygon(polygon, projectData, snoop, null, null, normalMap);
 					}
 				}
+				else
+				{
+					Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, snoop, null, null, null));
+				}
 			}
 
 			projectData.workingArea.Refresh();
+
+			timing.Stop();
+			Debug.WriteLine("Elapsed time fillPolygons: {0} ms", timing.ElapsedMilliseconds);
+
 			return;
 		}
 
@@ -141,6 +152,7 @@ namespace Illuminated_sphere.Drawing
 							}
 
 							Color color = Color.Red;
+
 							if (projectData.interpolateColor)
 							{
 								// interpolacja koloru 
@@ -149,12 +161,6 @@ namespace Illuminated_sphere.Drawing
 							else
 							{
 								// interpolacja wektora
-								/*Vector3 normal = ColorGenerator.interpolateNormal(polygon, x, y);
-								if (projectData.useNormalMap)
-								{
-									normal = NormalMapOperations.modifyNormal(projectData, normal, x, y, normalMap);
-								}*/
-
 								Vector3 normal = projectData.normalsTab[x, y];
 								color = ColorGenerator.generatePixelColorFromNormalVector(polygon, projectData, x, y, normal, texture);
 							}

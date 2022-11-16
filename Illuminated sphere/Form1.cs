@@ -33,19 +33,15 @@ public partial class form_mainWindow : Form
 
 		if (file == 0)
 		{
-			fileName = "sphere.obj";
-			projectData.polygons = Loaders.loadNotNormalisedObj(fileName);
+			fileName = "HalfTorusSmooth.obj";
+			projectData.polygons = Loaders.loadNormalisedObj(fileName, this.pictureBox_workingArea.Width - 40, this.pictureBox_workingArea.Height - 40);
 		}
 		else if (file == 1)
 		{
 			fileName = "sphere3mXXXLSmooth.obj";
-			projectData.polygons = Loaders.loadNormalisedObj(fileName, 1000, 700);
+			projectData.polygons = Loaders.loadNormalisedObj(fileName, this.pictureBox_workingArea.Width - 40, this.pictureBox_workingArea.Height - 40);
 		}
-		else
-		{
-			fileName = "proj2_sfera.obj";
-			projectData.polygons = Loaders.loadNormalisedObj(fileName, 1000, 700);
-		}
+		
 
 		using (Graphics g = Graphics.FromImage(projectData.workingArea.Image))
 		{
@@ -79,7 +75,7 @@ public partial class form_mainWindow : Form
 		SunAnimation sunAnimation = new SunAnimation();
 
 		timer.Tick += new EventHandler((sender, e) => SunAnimation.calculateSunPosition(sender, e, projectData));
-		timer.Interval = 10;
+		timer.Interval = 5;
 		timer.Start();
 		timer.Enabled = false;
 
@@ -206,7 +202,10 @@ public partial class form_mainWindow : Form
 		{
 			this.panel_objColor.BackColor = colorDialog.Color;
 			projectData.objColor = this.panel_objColor.BackColor;
+			projectData.useTexture = false;
+
 			Filler.fillPolygons(projectData);
+			this.pictureBox_workingArea.Refresh();
 		}
 	}
 

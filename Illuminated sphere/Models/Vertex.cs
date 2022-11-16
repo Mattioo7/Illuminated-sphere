@@ -21,6 +21,7 @@ namespace Illuminated_sphere.Models
 		public byte G { get; set; }
 		public byte B { get; set; }
 
+		public Color Color => this.color();
 
 		public Vertex()	{}
 
@@ -43,5 +44,7 @@ namespace Illuminated_sphere.Models
 		public static implicit operator Point(Vertex vertex) => new Point((int)vertex.x, (int)vertex.y);
 
 		public static implicit operator Vector3(Vertex vertex) => new Vector3(vertex.x, vertex.y, vertex.z);
+
+		public Color color() => Color.FromArgb(A, R, G, B);
 	}
 }

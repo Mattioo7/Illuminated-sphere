@@ -32,6 +32,8 @@ namespace Illuminated_sphere.ObjHelpers
 			List<Polygon> polygons = Polygon.makePolygonListFromLoadResult(loadResult);
 			Converters.convertVerticesFromNormalizedObj(polygons, width, heigth);
 
+			Parallel.ForEach(polygons, polygon => polygon.calculateDenominator());
+
 			return polygons;
 		}
 
@@ -40,6 +42,8 @@ namespace Illuminated_sphere.ObjHelpers
 			LoadResult? loadResult = loadObj(fileName);
 
 			List<Polygon> polygons = Polygon.makePolygonListFromLoadResult(loadResult);
+
+			Parallel.ForEach(polygons, polygon => polygon.calculateDenominator());
 
 			return polygons;
 		}

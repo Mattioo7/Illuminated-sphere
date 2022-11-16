@@ -62,9 +62,9 @@ partial class form_mainWindow
 			this.radioButton_color = new System.Windows.Forms.RadioButton();
 			this.panel_objColor = new System.Windows.Forms.Panel();
 			this.groupBox_normalMap = new System.Windows.Forms.GroupBox();
+			this.label_normalMapFile = new System.Windows.Forms.Label();
 			this.button_clearNormalMap = new System.Windows.Forms.Button();
 			this.button_loadNormalMap = new System.Windows.Forms.Button();
-			this.label_normalMapFile = new System.Windows.Forms.Label();
 			this.tableLayoutPanel_main.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox_workingArea)).BeginInit();
 			this.tableLayoutPanel_right.SuspendLayout();
@@ -461,6 +461,15 @@ partial class form_mainWindow
 			this.groupBox_normalMap.TabStop = false;
 			this.groupBox_normalMap.Text = "Normal map";
 			// 
+			// label_normalMapFile
+			// 
+			this.label_normalMapFile.AutoSize = true;
+			this.label_normalMapFile.Location = new System.Drawing.Point(6, 58);
+			this.label_normalMapFile.Name = "label_normalMapFile";
+			this.label_normalMapFile.Size = new System.Drawing.Size(58, 15);
+			this.label_normalMapFile.TabIndex = 2;
+			this.label_normalMapFile.Text = "File name";
+			// 
 			// button_clearNormalMap
 			// 
 			this.button_clearNormalMap.Location = new System.Drawing.Point(106, 22);
@@ -480,21 +489,13 @@ partial class form_mainWindow
 			this.button_loadNormalMap.UseVisualStyleBackColor = true;
 			this.button_loadNormalMap.Click += new System.EventHandler(this.button_loadNormalMap_Click);
 			// 
-			// label_normalMapFile
-			// 
-			this.label_normalMapFile.AutoSize = true;
-			this.label_normalMapFile.Location = new System.Drawing.Point(6, 58);
-			this.label_normalMapFile.Name = "label_normalMapFile";
-			this.label_normalMapFile.Size = new System.Drawing.Size(58, 15);
-			this.label_normalMapFile.TabIndex = 2;
-			this.label_normalMapFile.Text = "File name";
-			// 
 			// form_mainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(984, 761);
 			this.Controls.Add(this.tableLayoutPanel_main);
+			this.MinimumSize = new System.Drawing.Size(1000, 800);
 			this.Name = "form_mainWindow";
 			this.Text = "Illuminated sphere";
 			this.tableLayoutPanel_main.ResumeLayout(false);

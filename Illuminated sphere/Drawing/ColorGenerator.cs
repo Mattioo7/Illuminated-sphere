@@ -99,10 +99,10 @@ namespace Illuminated_sphere.Drawing
 			Vertex v2 = polygon.vertices[1];
 			Vertex v3 = polygon.vertices[2];
 
-			double denominator = ((v2.y - v3.y) * (v1.x - v3.x) + (v3.x - v2.x) * (v1.y - v3.y));
-			double W_v1 = ((v2.y - v3.y) * (x - v3.x) + (v3.x - v2.x) * (y - v3.y)) / denominator;
-			double W_v2 = ((v3.y - v1.y) * (x - v3.x) + (v1.x - v3.x) * (y - v3.y)) / denominator;
-			double W_v3 = 1 - W_v1 - W_v2;
+			float denominator = polygon.denominator;
+			float W_v1 = ((v2.y - v3.y) * (x - v3.x) + (v3.x - v2.x) * (y - v3.y)) / denominator;
+			float W_v2 = ((v3.y - v1.y) * (x - v3.x) + (v1.x - v3.x) * (y - v3.y)) / denominator;
+			float W_v3 = 1 - W_v1 - W_v2;
 
 			int colorA = (int)(v1.A * W_v1 + v2.A * W_v2 + v3.A * W_v3);
 			int colorR = (int)(v1.R * W_v1 + v2.R * W_v2 + v3.R * W_v3);
@@ -184,7 +184,7 @@ namespace Illuminated_sphere.Drawing
 			Vertex v2 = polygon.vertices[1];
 			Vertex v3 = polygon.vertices[2];
 
-			float denominator = ((v2.y - v3.y) * (v1.x - v3.x) + (v3.x - v2.x) * (v1.y - v3.y));
+			float denominator = polygon.denominator;
 			float W_v1 = ((v2.y - v3.y) * (x - v3.x) + (v3.x - v2.x) * (y - v3.y)) / denominator;
 			float W_v2 = ((v3.y - v1.y) * (x - v3.x) + (v1.x - v3.x) * (y - v3.y)) / denominator;
 			float W_v3 = 1 - W_v1 - W_v2;
@@ -207,10 +207,10 @@ namespace Illuminated_sphere.Drawing
 			Vertex v2 = polygon.vertices[1];
 			Vertex v3 = polygon.vertices[2];
 
-			double denominator = ((v2.y - v3.y) * (v1.x - v3.x) + (v3.x - v2.x) * (v1.y - v3.y));
-			double W_v1 = ((v2.y - v3.y) * (x - v3.x) + (v3.x - v2.x) * (y - v3.y)) / denominator;
-			double W_v2 = ((v3.y - v1.y) * (x - v3.x) + (v1.x - v3.x) * (y - v3.y)) / denominator;
-			double W_v3 = 1 - W_v1 - W_v2;
+			float denominator = polygon.denominator;
+			float W_v1 = ((v2.y - v3.y) * (x - v3.x) + (v3.x - v2.x) * (y - v3.y)) / denominator;
+			float W_v2 = ((v3.y - v1.y) * (x - v3.x) + (v1.x - v3.x) * (y - v3.y)) / denominator;
+			float W_v3 = 1 - W_v1 - W_v2;
 
 			int z = (int)(v1.z * W_v1 + v2.z * W_v2 + v3.z * W_v3);
 
@@ -227,12 +227,12 @@ namespace Illuminated_sphere.Drawing
 			return v1.X * v2.X + v1.Y * v2.Y + v1.Z * v2.Z;
 		}
 
-		public static float toUnity(int a)	// do innej klasy
+		public static float toUnity(int a)
 		{
 			return a / 255.0f;
 		}
 
-		public static byte fromUnity(float a) // do innej klasy
+		public static byte fromUnity(float a)
 		{
 			float result = a * 255.0f;
 			if (result > 255) result = 255; if (result < 0) result = 0;
