@@ -19,8 +19,8 @@ namespace Illuminated_sphere.Drawing
 	{
 		public static void fillPolygons(ProjectData projectData)
 		{
-			Stopwatch timing = new Stopwatch();
-			timing.Start();
+			//Stopwatch timing = new Stopwatch();
+			//timing.Start();
 
 			using (var snoop = new BmpPixelSnoop((Bitmap)projectData.workingArea.Image))
 			{
@@ -57,8 +57,8 @@ namespace Illuminated_sphere.Drawing
 
 			projectData.workingArea.Refresh();
 
-			timing.Stop();
-			Debug.WriteLine("Elapsed time fillPolygons: {0} ms", timing.ElapsedMilliseconds);
+			//timing.Stop();
+			//Debug.WriteLine("Elapsed time fillPolygons: {0} ms", timing.ElapsedMilliseconds);
 
 			return;
 		}

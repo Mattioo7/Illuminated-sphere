@@ -33,9 +33,9 @@ partial class form_mainWindow
 			this.pictureBox_workingArea = new System.Windows.Forms.PictureBox();
 			this.tableLayoutPanel_right = new System.Windows.Forms.TableLayoutPanel();
 			this.groupBox_buttons = new System.Windows.Forms.GroupBox();
+			this.button_figure2 = new System.Windows.Forms.Button();
+			this.button_figure1 = new System.Windows.Forms.Button();
 			this.button_clear = new System.Windows.Forms.Button();
-			this.button_redraw = new System.Windows.Forms.Button();
-			this.button_onePolygon = new System.Windows.Forms.Button();
 			this.button_outline = new System.Windows.Forms.Button();
 			this.groupBox_parameters = new System.Windows.Forms.GroupBox();
 			this.radioButton_normalInterpolation = new System.Windows.Forms.RadioButton();
@@ -126,9 +126,9 @@ partial class form_mainWindow
 			// 
 			// groupBox_buttons
 			// 
+			this.groupBox_buttons.Controls.Add(this.button_figure2);
+			this.groupBox_buttons.Controls.Add(this.button_figure1);
 			this.groupBox_buttons.Controls.Add(this.button_clear);
-			this.groupBox_buttons.Controls.Add(this.button_redraw);
-			this.groupBox_buttons.Controls.Add(this.button_onePolygon);
 			this.groupBox_buttons.Controls.Add(this.button_outline);
 			this.groupBox_buttons.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox_buttons.Location = new System.Drawing.Point(3, 3);
@@ -138,6 +138,26 @@ partial class form_mainWindow
 			this.groupBox_buttons.TabStop = false;
 			this.groupBox_buttons.Text = "Buttons";
 			// 
+			// button_figure2
+			// 
+			this.button_figure2.Location = new System.Drawing.Point(6, 65);
+			this.button_figure2.Name = "button_figure2";
+			this.button_figure2.Size = new System.Drawing.Size(75, 23);
+			this.button_figure2.TabIndex = 5;
+			this.button_figure2.Text = "Figure 2";
+			this.button_figure2.UseVisualStyleBackColor = true;
+			this.button_figure2.Click += new System.EventHandler(this.button_figure2_Click);
+			// 
+			// button_figure1
+			// 
+			this.button_figure1.Location = new System.Drawing.Point(106, 22);
+			this.button_figure1.Name = "button_figure1";
+			this.button_figure1.Size = new System.Drawing.Size(75, 23);
+			this.button_figure1.TabIndex = 4;
+			this.button_figure1.Text = "Figure 1";
+			this.button_figure1.UseVisualStyleBackColor = true;
+			this.button_figure1.Click += new System.EventHandler(this.button_figure1_Click);
+			// 
 			// button_clear
 			// 
 			this.button_clear.Location = new System.Drawing.Point(106, 65);
@@ -146,26 +166,7 @@ partial class form_mainWindow
 			this.button_clear.TabIndex = 3;
 			this.button_clear.Text = "Clear";
 			this.button_clear.UseVisualStyleBackColor = true;
-			// 
-			// button_redraw
-			// 
-			this.button_redraw.Location = new System.Drawing.Point(106, 22);
-			this.button_redraw.Name = "button_redraw";
-			this.button_redraw.Size = new System.Drawing.Size(75, 23);
-			this.button_redraw.TabIndex = 2;
-			this.button_redraw.Text = "Redraw";
-			this.button_redraw.UseVisualStyleBackColor = true;
-			this.button_redraw.Click += new System.EventHandler(this.button_redraw_Click);
-			// 
-			// button_onePolygon
-			// 
-			this.button_onePolygon.Location = new System.Drawing.Point(6, 65);
-			this.button_onePolygon.Name = "button_onePolygon";
-			this.button_onePolygon.Size = new System.Drawing.Size(75, 23);
-			this.button_onePolygon.TabIndex = 1;
-			this.button_onePolygon.Text = "One poly";
-			this.button_onePolygon.UseVisualStyleBackColor = true;
-			this.button_onePolygon.Click += new System.EventHandler(this.button_onePolygon_Click);
+			this.button_clear.Click += new System.EventHandler(this.button_clear_Click);
 			// 
 			// button_outline
 			// 
@@ -528,8 +529,6 @@ partial class form_mainWindow
 	private GroupBox groupBox_sun;
 	private GroupBox groupBox_object;
 	private Button button_clear;
-	private Button button_redraw;
-	private Button button_onePolygon;
 	private Button button_outline;
 	private Label label_kd;
 	private TrackBar trackBar_kd;
@@ -556,4 +555,6 @@ partial class form_mainWindow
 	private Button button_clearNormalMap;
 	private Button button_loadNormalMap;
 	private Label label_normalMapFile;
+	private Button button_figure2;
+	private Button button_figure1;
 }

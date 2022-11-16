@@ -23,35 +23,34 @@ public partial class form_mainWindow : Form
 
 		initalizeEnviroment();
 
-		obj_test();
+		obj_test(0);
 	}
 
-	private void obj_test()
+	private void obj_test(int file)
 	{
-		int file = 1;
 		string fileName;
 
 		if (file == 0)
 		{
-			fileName = "HalfTorusSmooth.obj";
+			fileName = "sphere3mXXXLSmooth.obj";
 			projectData.polygons = Loaders.loadNormalisedObj(fileName, this.pictureBox_workingArea.Width - 40, this.pictureBox_workingArea.Height - 40);
+			
 		}
 		else if (file == 1)
 		{
-			fileName = "sphere3mXXXLSmooth.obj";
+			fileName = "TorusSmooth.obj";
 			projectData.polygons = Loaders.loadNormalisedObj(fileName, this.pictureBox_workingArea.Width - 40, this.pictureBox_workingArea.Height - 40);
 		}
-		
+
+		// normals tab
+		projectData.normalsTab = new Vector3[this.pictureBox_workingArea.Width, this.pictureBox_workingArea.Height];
+		NormalMapOperations.calculateNormalsTab(projectData);
 
 		using (Graphics g = Graphics.FromImage(projectData.workingArea.Image))
 		{
 			g.Clear(Color.AliceBlue);
 		}
 		Filler.fillPolygons(projectData);
-
-		// normals tab
-		projectData.normalsTab = new Vector3[this.pictureBox_workingArea.Width, this.pictureBox_workingArea.Height];
-		NormalMapOperations.calculateNormalsTab(projectData);
 
 		this.pictureBox_workingArea.Refresh();
 
@@ -87,46 +86,19 @@ public partial class form_mainWindow : Form
 		
 	}
 
-	public void defaultValues()
-	{
-		projectData.kd = 1f;
-		projectData.ks = 0.5f;
-		projectData.m = 20;
-	}
-
 	private void button_outline_Click(object sender, EventArgs e)
 	{
 		BasicDrawing.drawVertices(projectData.polygons, projectData);
 		BasicDrawing.drawLines(projectData.polygons, projectData);
 	}
 
-	private void button_onePolygon_Click(object sender, EventArgs e)
-	{
-		Stopwatch timing = new Stopwatch();
-		timing.Start();
 
-		Debug.WriteLine("i: " + a);
-		Filler.fillPolygons2(projectData, a/*, Color.Red*/);
-
-		a++;
-		this.pictureBox_workingArea.Refresh();
-
-		timing.Stop();
-		Debug.WriteLine("Elapsed time: {0} ms", timing.ElapsedMilliseconds);
-	}
 
 	private void button_redraw_Click(object sender, EventArgs e)
 	{
-		Stopwatch timing = new Stopwatch();
-		Debug.WriteLine("Started timer");
-		timing.Start();
-
 		Filler.fillPolygons(projectData);
 
 		this.pictureBox_workingArea.Refresh();
-
-		timing.Stop();
-		Debug.WriteLine("Elapsed time: {0} ms = {1} s", timing.ElapsedMilliseconds, timing.ElapsedMilliseconds / 1000);
 	}
 
 	private void trackBar_kd_Scroll(object sender, EventArgs e)
@@ -255,6 +227,38 @@ public partial class form_mainWindow : Form
 		projectData.interpolateColor = radioButton_colorInterpolation.Checked;
 
 		Filler.fillPolygons(projectData);
+		this.pictureBox_workingArea.Refresh();
+	}
+
+	private void button_figure1_Click(object sender, EventArgs e)
+	{
+		//timer.Stop();
+		//initalizeEnviroment();
+		using (Graphics g = Graphics.FromImage(projectData.workingArea.Image))
+		{
+			g.Clear(Color.AliceBlue);
+		}
+		obj_test(0);
+	}
+
+	private void button_figure2_Click(object sender, EventArgs e)
+	{
+		//timer.Stop();
+		//initalizeEnviroment();
+		using (Graphics g = Graphics.FromImage(projectData.workingArea.Image))
+		{
+			g.Clear(Color.AliceBlue);
+		}
+		obj_test(1);
+	}
+
+	private void button_clear_Click(object sender, EventArgs e)
+	{
+		using (Graphics g = Graphics.FromImage(projectData.workingArea.Image))
+		{
+			g.Clear(Color.AliceBlue);
+		}
+
 		this.pictureBox_workingArea.Refresh();
 	}
 }
