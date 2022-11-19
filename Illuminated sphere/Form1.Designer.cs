@@ -63,7 +63,6 @@ partial class form_mainWindow
 			this.panel_objColor = new System.Windows.Forms.Panel();
 			this.groupBox_normalMap = new System.Windows.Forms.GroupBox();
 			this.label_normalMapFile = new System.Windows.Forms.Label();
-			this.button_clearNormalMap = new System.Windows.Forms.Button();
 			this.button_loadNormalMap = new System.Windows.Forms.Button();
 			this.tableLayoutPanel_main.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox_workingArea)).BeginInit();
@@ -452,7 +451,6 @@ partial class form_mainWindow
 			// groupBox_normalMap
 			// 
 			this.groupBox_normalMap.Controls.Add(this.label_normalMapFile);
-			this.groupBox_normalMap.Controls.Add(this.button_clearNormalMap);
 			this.groupBox_normalMap.Controls.Add(this.button_loadNormalMap);
 			this.groupBox_normalMap.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox_normalMap.Location = new System.Drawing.Point(3, 649);
@@ -470,15 +468,6 @@ partial class form_mainWindow
 			this.label_normalMapFile.Size = new System.Drawing.Size(58, 15);
 			this.label_normalMapFile.TabIndex = 2;
 			this.label_normalMapFile.Text = "File name";
-			// 
-			// button_clearNormalMap
-			// 
-			this.button_clearNormalMap.Location = new System.Drawing.Point(106, 22);
-			this.button_clearNormalMap.Name = "button_clearNormalMap";
-			this.button_clearNormalMap.Size = new System.Drawing.Size(75, 23);
-			this.button_clearNormalMap.TabIndex = 1;
-			this.button_clearNormalMap.Text = "Clear";
-			this.button_clearNormalMap.UseVisualStyleBackColor = true;
 			// 
 			// button_loadNormalMap
 			// 
@@ -552,7 +541,6 @@ partial class form_mainWindow
 	private RadioButton radioButton_normalInterpolation;
 	private RadioButton radioButton_colorInterpolation;
 	private GroupBox groupBox_normalMap;
-	private Button button_clearNormalMap;
 	private Button button_loadNormalMap;
 	private Label label_normalMapFile;
 	private Button button_figure2;

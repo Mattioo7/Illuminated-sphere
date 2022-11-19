@@ -19,56 +19,44 @@ namespace Illuminated_sphere.Drawing
 	{
 		public static void fillPolygons(ProjectData projectData)
 		{
-			//Stopwatch timing = new Stopwatch();
-			//timing.Start();
+			Stopwatch timing = new Stopwatch();
+			timing.Start();
 
-			using (var snoop = new BmpPixelSnoop((Bitmap)projectData.workingArea.Image))
+			if (projectData.useTexture && projectData.useNormalMap)
 			{
-				if (projectData.useTexture && projectData.useNormalMap)
-				{
-					using (var texture = new BmpPixelSnoop(projectData.texture))
-					using (var normalMap = new BmpPixelSnoop(projectData.normalMap))
-					{
-						Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, snoop, texture, null, normalMap));
-						//foreach (Polygon polygon in projectData.polygons) fillPolygon(polygon, projectData, snoop, texture, null, normalMap);
-					}
-				}
-				else if (projectData.useTexture)
-				{
-					using (var texture = new BmpPixelSnoop(projectData.texture))
-					{
-						Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, snoop, texture, null, null));
-						//foreach (Polygon polygon in projectData.polygons) fillPolygon(polygon, projectData, snoop, texture, null, null);
-					}
-				}
-				else if (projectData.useNormalMap)
-				{
-					using (var normalMap = new BmpPixelSnoop(projectData.normalMap))
-					{
-						Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, snoop, null, null, normalMap));
-						//foreach (Polygon polygon in projectData.polygons) fillPolygon(polygon, projectData, snoop, null, null, normalMap);
-					}
-				}
-				else
-				{
-					Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, snoop, null, null, null));
-				}
+				Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, projectData.snoop, projectData.textureSnoop, null, projectData.normalMapSnoop));
+				//foreach (Polygon polygon in projectData.polygons) fillPolygon(polygon, projectData, snoop, texture, null, normalMap);
+			}
+			else if (projectData.useTexture)
+			{
+				Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, projectData.snoop, projectData.textureSnoop, null, null));
+				//foreach (Polygon polygon in projectData.polygons) fillPolygon(polygon, projectData, snoop, texture, null, null);
+
+			}
+			else if (projectData.useNormalMap)
+			{
+				Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, projectData.snoop, null, null, projectData.normalMapSnoop));
+				//foreach (Polygon polygon in projectData.polygons) fillPolygon(polygon, projectData, snoop, null, null, normalMap);
+			}
+			else
+			{
+				Parallel.ForEach(projectData.polygons, polygon => fillPolygon(polygon, projectData, projectData.snoop, null, null, null));
 			}
 
 			projectData.workingArea.Refresh();
 
-			//timing.Stop();
-			//Debug.WriteLine("Elapsed time fillPolygons: {0} ms", timing.ElapsedMilliseconds);
+			timing.Stop();
+			Debug.WriteLine("Elapsed time fillPolygons: {0} ms", timing.ElapsedMilliseconds);
+
+			//projectData.form.Text = "Elapsed time fillPolygons: " + timing.ElapsedMilliseconds + " ms";
+			projectData.form.Text = "FPS: " + 1000 / timing.ElapsedMilliseconds;
 
 			return;
 		}
 
 		public static void fillPolygons2(ProjectData projectData, int i, Color? polyColor = null)
 		{
-			using (var snoop = new BmpPixelSnoop((Bitmap)projectData.workingArea.Image))
-			{
-				fillPolygon(projectData.polygons[i], projectData, snoop, null, polyColor, null);
-			}
+			fillPolygon(projectData.polygons[i], projectData, projectData.snoop, null, polyColor, null);
 		}
 
 		public static void fillPolygon(Polygon polygon, ProjectData projectData, BmpPixelSnoop bitmap, BmpPixelSnoop? texture, Color? objectColor = null, BmpPixelSnoop? normalMap = null)
@@ -151,7 +139,7 @@ namespace Illuminated_sphere.Drawing
 								continue;
 							}
 
-							Color color = Color.Red;
+							Color color;
 
 							if (projectData.interpolateColor)
 							{

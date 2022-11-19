@@ -23,10 +23,7 @@ namespace Illuminated_sphere.Utility
 
 		public static void calculateNormalsTabWithNormalMap(ProjectData projectData)
 		{
-			using (var normalMap = new BmpPixelSnoop(projectData.normalMap))
-			{
-				Parallel.ForEach(projectData.polygons, polygon => calculateNormalsTabforOnePolygon(projectData, polygon, normalMap));
-			}
+			Parallel.ForEach(projectData.polygons, polygon => calculateNormalsTabforOnePolygon(projectData, polygon, projectData.normalMapSnoop));
 		}
 
 		public static void calculateNormalsTabforOnePolygon(ProjectData projectData, Polygon polygon, BmpPixelSnoop? normalMap = null)
@@ -131,28 +128,27 @@ namespace Illuminated_sphere.Utility
 		
 		public static void modifyNormals(ProjectData projectData)
 		{
-			using (var normalMap = new BmpPixelSnoop(projectData.normalMap))
+			Parallel.ForEach(projectData.polygons, polygon => modifyNormal(projectData, polygon, projectData.normalMapSnoop));
+		}
+
+		public static void modifyNormal(ProjectData projectData, Polygon polygon, BmpPixelSnoop? normalMap)
+		{
+			foreach (Vertex vertex in polygon.vertices)
 			{
-				foreach (Polygon polygon in projectData.polygons)
-				{
-					foreach (Vertex vertex in polygon.vertices)
-					{
-						Color color = normalMap.GetPixel((int)vertex.x, (int)vertex.y);
+				Color color = normalMap.GetPixel((int)vertex.x, (int)vertex.y);
 
-						float Nx = normalizeColor1(color.R);
-						float Ny = normalizeColor1(color.G);
-						float Nz = normalizeColor2(color.B);
+				float Nx = normalizeColor1(color.R);
+				float Ny = normalizeColor1(color.G);
+				float Nz = normalizeColor2(color.B);
 
-						Vector3 N_tekstury = new Vector3(Nx, Ny, Nz);
-						Vector3 N_powierzchni = vertex.normal;
-						Vector3 B;
-						if (N_powierzchni == new Vector3(0, 0, 1)) B = new Vector3(0, 1, 0);
-						else B = Vector3.Cross(N_powierzchni, new Vector3(0, 0, 1));
-						Vector3 T = Vector3.Cross(B, N_powierzchni);
+				Vector3 N_tekstury = new Vector3(Nx, Ny, Nz);
+				Vector3 N_powierzchni = vertex.normal;
+				Vector3 B;
+				if (N_powierzchni == new Vector3(0, 0, 1)) B = new Vector3(0, 1, 0);
+				else B = Vector3.Cross(N_powierzchni, new Vector3(0, 0, 1));
+				Vector3 T = Vector3.Cross(B, N_powierzchni);
 
-						vertex.normal = matrixVectorProduct(T, B, N_powierzchni, N_tekstury);
-					}
-				}
+				vertex.normal = matrixVectorProduct(T, B, N_powierzchni, N_tekstury);
 			}
 		}
 

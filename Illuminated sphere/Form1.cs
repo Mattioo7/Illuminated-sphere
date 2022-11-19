@@ -32,7 +32,7 @@ public partial class form_mainWindow : Form
 
 		if (file == 0)
 		{
-			fileName = "sphere3mXXXLSmooth.obj";
+			fileName = "sphere.obj";
 			projectData.polygons = Loaders.loadNormalisedObj(fileName, this.pictureBox_workingArea.Width - 40, this.pictureBox_workingArea.Height - 40);
 			
 		}
@@ -44,12 +44,25 @@ public partial class form_mainWindow : Form
 
 		// normals tab
 		projectData.normalsTab = new Vector3[this.pictureBox_workingArea.Width, this.pictureBox_workingArea.Height];
-		NormalMapOperations.calculateNormalsTab(projectData);
+		if (projectData.useNormalMap)
+		{
+			NormalMapOperations.calculateNormalsTabWithNormalMap(projectData);
+		}
+		else
+		{
+			NormalMapOperations.calculateNormalsTab(projectData);
+		}
 
 		using (Graphics g = Graphics.FromImage(projectData.workingArea.Image))
 		{
 			g.Clear(Color.AliceBlue);
 		}
+
+		using (var snoop = new BmpPixelSnoop((Bitmap)projectData.workingArea.Image))
+		{
+			projectData.snoop = snoop;
+		}
+
 		Filler.fillPolygons(projectData);
 
 		this.pictureBox_workingArea.Refresh();
@@ -83,7 +96,12 @@ public partial class form_mainWindow : Form
 		projectData.texture = new Bitmap(path);
 		projectData.texture = new Bitmap(projectData.texture, this.pictureBox_workingArea.Width, this.pictureBox_workingArea.Height);
 
-		
+		using (var textureSnoop = new BmpPixelSnoop((Bitmap)projectData.texture))
+		{
+			projectData.textureSnoop = textureSnoop;
+		}
+
+		projectData.form = this;
 	}
 
 	private void button_outline_Click(object sender, EventArgs e)
@@ -105,9 +123,13 @@ public partial class form_mainWindow : Form
 	{
 		projectData.kd = (this.trackBar_kd.Value / 100f);
 
-		if (this.trackBar_kd.Value < 0.01)
+		if (this.trackBar_kd.Value < 1)
 		{
-			this.trackBar_kd.Text = "0,00";
+			this.label_kdValue.Text = "0,00";
+		}
+		else if (this.trackBar_kd.Value > 99)
+		{
+			this.label_kdValue.Text = "1,00";
 		}
 		else
 		{
@@ -120,9 +142,13 @@ public partial class form_mainWindow : Form
 	{
 		projectData.ks = (this.trackBar_ks.Value / 100f);
 
-		if (this.trackBar_ks.Value < 0.01)
+		if (this.trackBar_ks.Value < 1)
 		{
 			this.label_ksValue.Text = "0,00";
+		}
+		else if (this.trackBar_ks.Value > 99)
+		{
+			this.label_ksValue.Text = "1,00";
 		}
 		else
 		{
@@ -198,6 +224,11 @@ public partial class form_mainWindow : Form
 		{
 			projectData.texture = new Bitmap(fileDialog.FileName);
 			projectData.texture = new Bitmap(projectData.texture, this.pictureBox_workingArea.Width, this.pictureBox_workingArea.Height);
+
+			using (var textureSnoop = new BmpPixelSnoop((Bitmap)projectData.texture))
+			{
+				projectData.textureSnoop = textureSnoop;
+			}
 		}
 	}
 
@@ -213,9 +244,15 @@ public partial class form_mainWindow : Form
 
 			projectData.useNormalMap = true;
 
+			using (var normalMap = new BmpPixelSnoop(projectData.normalMap))
+			{
+				projectData.normalMapSnoop = normalMap;
+			}
+
 			this.label_normalMapFile.Text = fileDialog.SafeFileName;
 
 			NormalMapOperations.calculateNormalsTabWithNormalMap(projectData);
+			NormalMapOperations.modifyNormals(projectData);
 
 			Filler.fillPolygons(projectData);
 			this.pictureBox_workingArea.Refresh();
@@ -261,4 +298,5 @@ public partial class form_mainWindow : Form
 
 		this.pictureBox_workingArea.Refresh();
 	}
+
 }

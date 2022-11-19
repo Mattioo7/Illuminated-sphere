@@ -17,7 +17,6 @@ namespace Illuminated_sphere.Utility
 
 		// dun
 		public Vector3 sunPosition { get; set; } = new Vector3(100, 100, 900);
-		public Color sun { get; set; }
 		public bool sunAnimation { get; set; }
 		public Color sunColor { get; set; } = Color.LightGreen;
 		public float sunHeightModifier { get; set; } = 1;
@@ -26,10 +25,12 @@ namespace Illuminated_sphere.Utility
 		public bool useTexture { get; set; } = true;
 		public Color objColor { get; set; } = Color.White;
 		public Bitmap texture { get; set; }
+		public BmpPixelSnoop textureSnoop { get; set; }
 
-		// obj color / texture
+		//normal map
 		public bool useNormalMap { get; set; } = false;
 		public Bitmap normalMap { get; set; }
+		public BmpPixelSnoop normalMapSnoop { get; set; }
 		public Vector3[,] normalsTab { get; set; }
 
 		// interpolation
@@ -37,6 +38,8 @@ namespace Illuminated_sphere.Utility
 
 		// others
 		public PictureBox workingArea { get; set; }
+		public BmpPixelSnoop snoop { get; set; }
 		public List<Polygon> polygons { get; set; }
+		public Form form { get; set; }
 	}
 }
