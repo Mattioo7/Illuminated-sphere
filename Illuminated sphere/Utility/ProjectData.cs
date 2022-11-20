@@ -18,12 +18,12 @@ namespace Illuminated_sphere.Utility
 		// dun
 		public Vector3 sunPosition { get; set; } = new Vector3(100, 100, 900);
 		public bool sunAnimation { get; set; }
-		public Color sunColor { get; set; } = Color.LightGreen;
+		public Color sunColor { get; set; } = Color.White;
 		public float sunHeightModifier { get; set; } = 1;
 
 		// obj color / texture
 		public bool useTexture { get; set; } = true;
-		public Color objColor { get; set; } = Color.White;
+		public Color objColor { get; set; } = Color.LightGreen;
 		public Bitmap texture { get; set; }
 		public BmpPixelSnoop textureSnoop { get; set; }
 
@@ -41,5 +41,6 @@ namespace Illuminated_sphere.Utility
 		public BmpPixelSnoop snoop { get; set; }
 		public List<Polygon> polygons { get; set; }
 		public Form form { get; set; }
+		public int currentObj { get; set; } = 0;
 	}
 }

@@ -12,8 +12,7 @@ namespace Illuminated_sphere;
 
 public partial class form_mainWindow : Form
 {
-	static int a = 0;
-	ProjectData projectData { get; set; }
+	ProjectData projectData;
 
 	Timer timer = new Timer();
 
@@ -23,7 +22,7 @@ public partial class form_mainWindow : Form
 
 		initalizeEnviroment();
 
-		obj_test(0);
+		obj_test(projectData.currentObj);
 	}
 
 	private void obj_test(int file)
@@ -32,26 +31,23 @@ public partial class form_mainWindow : Form
 
 		if (file == 0)
 		{
+			projectData.currentObj = 0;
 			fileName = "sphere.obj";
 			projectData.polygons = Loaders.loadNormalisedObj(fileName, this.pictureBox_workingArea.Width - 40, this.pictureBox_workingArea.Height - 40);
 			
 		}
 		else if (file == 1)
 		{
+			projectData.currentObj = 1;
 			fileName = "TorusSmooth.obj";
 			projectData.polygons = Loaders.loadNormalisedObj(fileName, this.pictureBox_workingArea.Width - 40, this.pictureBox_workingArea.Height - 40);
 		}
 
 		// normals tab
+		projectData.useNormalMap = false;
+		this.label_normalMapFile.Text = "File name";
 		projectData.normalsTab = new Vector3[this.pictureBox_workingArea.Width, this.pictureBox_workingArea.Height];
-		if (projectData.useNormalMap)
-		{
-			NormalMapOperations.calculateNormalsTabWithNormalMap(projectData);
-		}
-		else
-		{
-			NormalMapOperations.calculateNormalsTab(projectData);
-		}
+		NormalMapOperations.calculateNormalsTab(projectData);
 
 		using (Graphics g = Graphics.FromImage(projectData.workingArea.Image))
 		{
@@ -239,6 +235,8 @@ public partial class form_mainWindow : Form
 		fileDialog.Filter = "Image Files(*.BMP;*.JPG;*.PNG)|*.BMP;*.JPG;*.PNG";
 		if (fileDialog.ShowDialog() == DialogResult.OK)
 		{
+			obj_test(projectData.currentObj);
+
 			projectData.normalMap = new Bitmap(fileDialog.FileName);
 			projectData.normalMap = new Bitmap(projectData.normalMap, this.pictureBox_workingArea.Width, this.pictureBox_workingArea.Height);
 
@@ -257,6 +255,12 @@ public partial class form_mainWindow : Form
 			Filler.fillPolygons(projectData);
 			this.pictureBox_workingArea.Refresh();
 		}
+	}
+
+	private void button_clearNormalMap_Click(object sender, EventArgs e)
+	{
+		this.label_normalMapFile.Text = "File name";
+		obj_test(projectData.currentObj);
 	}
 
 	private void radioButton_colorInterpolation_CheckedChanged(object sender, EventArgs e)

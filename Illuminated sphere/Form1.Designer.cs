@@ -64,6 +64,7 @@ partial class form_mainWindow
 			this.groupBox_normalMap = new System.Windows.Forms.GroupBox();
 			this.label_normalMapFile = new System.Windows.Forms.Label();
 			this.button_loadNormalMap = new System.Windows.Forms.Button();
+			this.button_clearNormalMap = new System.Windows.Forms.Button();
 			this.tableLayoutPanel_main.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox_workingArea)).BeginInit();
 			this.tableLayoutPanel_right.SuspendLayout();
@@ -450,6 +451,7 @@ partial class form_mainWindow
 			// 
 			// groupBox_normalMap
 			// 
+			this.groupBox_normalMap.Controls.Add(this.button_clearNormalMap);
 			this.groupBox_normalMap.Controls.Add(this.label_normalMapFile);
 			this.groupBox_normalMap.Controls.Add(this.button_loadNormalMap);
 			this.groupBox_normalMap.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -478,6 +480,16 @@ partial class form_mainWindow
 			this.button_loadNormalMap.Text = "Load";
 			this.button_loadNormalMap.UseVisualStyleBackColor = true;
 			this.button_loadNormalMap.Click += new System.EventHandler(this.button_loadNormalMap_Click);
+			// 
+			// button_clearNormalMap
+			// 
+			this.button_clearNormalMap.Location = new System.Drawing.Point(107, 22);
+			this.button_clearNormalMap.Name = "button_clearNormalMap";
+			this.button_clearNormalMap.Size = new System.Drawing.Size(75, 23);
+			this.button_clearNormalMap.TabIndex = 3;
+			this.button_clearNormalMap.Text = "Clear";
+			this.button_clearNormalMap.UseVisualStyleBackColor = true;
+			this.button_clearNormalMap.Click += new System.EventHandler(this.button_clearNormalMap_Click);
 			// 
 			// form_mainWindow
 			// 
@@ -545,4 +557,5 @@ partial class form_mainWindow
 	private Label label_normalMapFile;
 	private Button button_figure2;
 	private Button button_figure1;
+	private Button button_clearNormalMap;
 }
