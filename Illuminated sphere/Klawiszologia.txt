@@ -1,0 +1,10 @@
+Wszystko jest obsługiwane za pomocą PPM.
+
+Przyciski:
+- outline            - rysuje krawędzie oraz wirzchołki figury
+- figure 1           - ładuje oraz rysuje półkulę dodatnią
+- figure 2 			 - ładuje oraz rysuje torus
+- clear (buttons)    - czyści kanwę
+- load (Texture)     - otwiera dialogbox do wczytania tekstury
+- load (Normal map)  - otwiera dialogbox do mapy wektorów normalnych
+- clear (Normal map) - czyści modyfikację wektorów normlanych
