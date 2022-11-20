@@ -19,8 +19,6 @@ namespace Illuminated_sphere.Drawing
 	{
 		public static void fillPolygons(ProjectData projectData)
 		{
-			Stopwatch timing = new Stopwatch();
-			timing.Start();
 
 			if (projectData.useTexture && projectData.useNormalMap)
 			{
@@ -44,12 +42,6 @@ namespace Illuminated_sphere.Drawing
 			}
 
 			projectData.workingArea.Refresh();
-
-			timing.Stop();
-			Debug.WriteLine("Elapsed time fillPolygons: {0} ms", timing.ElapsedMilliseconds);
-
-			//projectData.form.Text = "Elapsed time fillPolygons: " + timing.ElapsedMilliseconds + " ms";
-			projectData.form.Text = "FPS: " + 1000 / timing.ElapsedMilliseconds;
 
 			return;
 		}

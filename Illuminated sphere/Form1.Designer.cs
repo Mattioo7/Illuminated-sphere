@@ -62,9 +62,9 @@ partial class form_mainWindow
 			this.radioButton_color = new System.Windows.Forms.RadioButton();
 			this.panel_objColor = new System.Windows.Forms.Panel();
 			this.groupBox_normalMap = new System.Windows.Forms.GroupBox();
+			this.button_clearNormalMap = new System.Windows.Forms.Button();
 			this.label_normalMapFile = new System.Windows.Forms.Label();
 			this.button_loadNormalMap = new System.Windows.Forms.Button();
-			this.button_clearNormalMap = new System.Windows.Forms.Button();
 			this.tableLayoutPanel_main.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox_workingArea)).BeginInit();
 			this.tableLayoutPanel_right.SuspendLayout();
@@ -405,7 +405,7 @@ partial class form_mainWindow
 			this.groupBox_object.Size = new System.Drawing.Size(188, 110);
 			this.groupBox_object.TabIndex = 3;
 			this.groupBox_object.TabStop = false;
-			this.groupBox_object.Text = "Object";
+			this.groupBox_object.Text = "Texture";
 			// 
 			// button_texture
 			// 
@@ -462,6 +462,16 @@ partial class form_mainWindow
 			this.groupBox_normalMap.TabStop = false;
 			this.groupBox_normalMap.Text = "Normal map";
 			// 
+			// button_clearNormalMap
+			// 
+			this.button_clearNormalMap.Location = new System.Drawing.Point(107, 22);
+			this.button_clearNormalMap.Name = "button_clearNormalMap";
+			this.button_clearNormalMap.Size = new System.Drawing.Size(75, 23);
+			this.button_clearNormalMap.TabIndex = 3;
+			this.button_clearNormalMap.Text = "Clear";
+			this.button_clearNormalMap.UseVisualStyleBackColor = true;
+			this.button_clearNormalMap.Click += new System.EventHandler(this.button_clearNormalMap_Click);
+			// 
 			// label_normalMapFile
 			// 
 			this.label_normalMapFile.AutoSize = true;
@@ -480,16 +490,6 @@ partial class form_mainWindow
 			this.button_loadNormalMap.Text = "Load";
 			this.button_loadNormalMap.UseVisualStyleBackColor = true;
 			this.button_loadNormalMap.Click += new System.EventHandler(this.button_loadNormalMap_Click);
-			// 
-			// button_clearNormalMap
-			// 
-			this.button_clearNormalMap.Location = new System.Drawing.Point(107, 22);
-			this.button_clearNormalMap.Name = "button_clearNormalMap";
-			this.button_clearNormalMap.Size = new System.Drawing.Size(75, 23);
-			this.button_clearNormalMap.TabIndex = 3;
-			this.button_clearNormalMap.Text = "Clear";
-			this.button_clearNormalMap.UseVisualStyleBackColor = true;
-			this.button_clearNormalMap.Click += new System.EventHandler(this.button_clearNormalMap_Click);
 			// 
 			// form_mainWindow
 			// 
