@@ -42,5 +42,9 @@ namespace Illuminated_sphere.Utility
 		public List<Polygon> polygons { get; set; }
 		public Form form { get; set; }
 		public int currentObj { get; set; } = 0;
+
+		// rectangle
+		public Point left { get; set; } = new Point(200, 300);
+		public Point right { get; set; } = new Point(500, 500);
 	}
 }
