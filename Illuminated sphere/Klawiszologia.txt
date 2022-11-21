@@ -8,3 +8,5 @@ Przyciski:
 - load (Texture)     - otwiera dialogbox do wczytania tekstury
 - load (Normal map)  - otwiera dialogbox do mapy wektorów normalnych
 - clear (Normal map) - czyści modyfikację wektorów normlanych
+
+W folderze Props znajduje się przykładowa mapa wektorów normlanych (Stylized_Fur)
