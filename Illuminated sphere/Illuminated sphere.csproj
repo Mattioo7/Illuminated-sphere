@@ -13,11 +13,9 @@
     <ItemGroup>
       <None Remove="Props\basketball.png" />
       <None Remove="Props\Megalodon.obj" />
-      <None Remove="Props\pillow.jpg" />
       <None Remove="Props\proj2_sfera.obj" />
       <None Remove="Props\sphere.obj" />
       <None Remove="Props\sphere3mXXXLSmooth.obj" />
-      <None Remove="Props\Sphere_gk.obj" />
       <None Remove="Props\Stylized_Fur_002_normal.jpg" />
       <None Remove="Props\Substance_Graph_Normal.jpg" />
       <None Remove="Props\TorusSmooth.obj" />
@@ -27,16 +25,10 @@
       <Content Include="Props\basketball.png">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
-      <Content Include="Props\pillow.jpg">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
       <Content Include="Props\sphere.obj">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
       <Content Include="Props\sphere3mXXXLSmooth.obj">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="Props\Sphere_gk.obj">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Content>
       <Content Include="Props\Stylized_Fur_002_normal.jpg">
